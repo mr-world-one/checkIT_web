@@ -1,0 +1,76 @@
+﻿2026-03-20 20:46:39.917 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-20 20:46:41.757 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-20 20:46:48.716 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-20 20:46:48.733 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey%20G3
+2026-03-20 20:46:54.061 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey G3'
+2026-03-20 20:46:54.065 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-20 20:46:59.906 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-20 20:46:59.913 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch%20KGN36VL
+2026-03-20 20:47:05.435 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch KGN36VL'
+2026-03-20 20:47:05.439 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-20 20:47:09.734 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-20 21:19:03.661 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-20 21:19:05.103 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-20 21:19:11.621 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-20 21:19:11.626 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey
+2026-03-20 21:19:17.154 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey'
+2026-03-20 21:19:17.159 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-20 21:19:23.005 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-20 21:19:23.007 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch
+2026-03-20 21:19:28.214 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch'
+2026-03-20 21:19:28.219 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-20 21:19:34.513 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-20 21:25:36.801 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-20 21:25:38.022 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%BF%D0%B5%D1%87%D0%B8%D0%B2%D0%BE
+2026-03-20 21:25:42.879 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'печиво'
+2026-03-20 21:26:02.843 +02:00	WARN	Excel upload: empty file
+2026-03-20 21:26:09.098 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-20 21:26:10.431 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-20 21:26:16.671 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-20 21:26:16.674 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey
+2026-03-20 21:26:22.481 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey'
+2026-03-20 21:26:22.484 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-20 21:26:27.922 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-20 21:26:27.927 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch
+2026-03-20 21:26:33.153 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch'
+2026-03-20 21:26:33.156 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-20 21:26:38.294 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-20 21:44:49.718 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-20 21:44:51.643 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-20 21:44:58.397 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-20 21:44:58.490 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey
+2026-03-20 21:45:04.203 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey'
+2026-03-20 21:45:04.205 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-20 21:45:10.469 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-20 21:45:10.473 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch
+2026-03-20 21:45:16.811 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch'
+2026-03-20 21:45:16.816 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-20 21:45:22.928 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-21 23:28:00.390 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-21 23:28:02.677 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-21 23:28:13.177 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-21 23:28:13.207 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey
+2026-03-21 23:28:19.920 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey'
+2026-03-21 23:28:19.927 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-21 23:28:26.190 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-21 23:28:26.193 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch
+2026-03-21 23:28:33.672 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch'
+2026-03-21 23:28:33.676 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-21 23:28:41.419 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-22 20:24:27.211 +02:00	INFO	[Selenium] Using chromedriver from 'C:\Users\it-support\OneDrive - lnu.edu.ua\Робочий стіл\chromedriver.exe'
+2026-03-22 20:24:30.576 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9D%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%20Lenovo%20IdeaPad%203
+2026-03-22 20:24:45.700 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Ноутбук Lenovo IdeaPad 3'
+2026-03-22 20:24:45.785 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%BE%D0%BD%D1%96%D1%82%D0%BE%D1%80%20Samsung%20Odyssey
+2026-03-22 20:24:56.714 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Монітор Samsung Odyssey'
+2026-03-22 20:24:56.727 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9C%D0%B8%D1%88%D0%BA%D0%B0%20Logitech%20M170
+2026-03-22 20:25:08.830 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Мишка Logitech M170'
+2026-03-22 20:25:08.836 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%A5%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%20Bosch
+2026-03-22 20:25:19.180 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Холодильник Bosch'
+2026-03-22 20:25:19.187 +02:00	INFO	[Prom.ua Selenium] Navigating: https://prom.ua/ua/search?search_term=%D0%9A%D0%B5%D1%82%D1%87%D1%83%D0%BF%20%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BD%D0%B8%D0%B9%20Heinz%20%D0%9B%D0%B0%D0%B3%D1%96%D0%B4%D0%BD%D0%B8%D0%B9%201000%20%D0%B3
+2026-03-22 20:25:30.680 +02:00	INFO	[Prom.ua Selenium] Found 15 products for 'Кетчуп томатний Heinz Лагідний 1000 г'
+2026-03-22 21:00:37.852 +02:00	WARN	EMAIL to=makko.22mv@gmail.com
+subject=Підтвердження реєстрації CheckIT
+body=<p>Підтвердіть email, щоб увійти:</p><p><a href='https://localhost:7025/Account/ConfirmEmail?userId=d59ef403-9c21-4b08-89fc-60d4978f4719&amp;token=CfDJ8FteU1tuerBJjW6%2BlxBjMfnd%2F4ksXiEdmIfhNY8J4sFxJDiqX3qkHbMblqEAvSDkf%2B2oToOWkVXSVoeKOBEBAsc9L%2FPNI2JVAv0M%2B6%2FkqzSRpk1dcyGUpmSno4jlbWHDjqmWF1h5L5ezVN8aZ3gAqd5vZ5epSFCRAG78NcIcp0kktCwc01MeYM3hkDiOlovKJPk2W8K%2ByxyEmD9kerQHRxIrw9xCzvL4alqHveMh0XTGjXXT3XYlgLG6vFaQohnOrw%3D%3D'>Підтвердити email</a></p>
+2026-03-22 21:22:34.368 +02:00	WARN	EMAIL to=makko.22mv@gmail.com
+subject=Відновлення паролю CheckIT
+body=<p>Щоб змінити пароль, перейдіть за посиланням:</p><p><a href='https://localhost:7025/Account/ResetPassword?email=makko.22mv@gmail.com&token=CfDJ8FteU1tuerBJjW6%2BlxBjMfmDJsKxnjFceNQ5qUjRLEQs%2BaEfa974XBbSe3kyGtgXqrQIs4FBdcjZ6Za67yKnujCbs0FHB1fEl%2B3Yt2ywgsFDublYoXIQ3lhZnx%2FG5VRqe3jX6MO%2FMod8INGsszFxm524upiFjm7lerLF4hScHjMJOUt7nCfRp3YT%2B0s9UGQA%2FetDRmelr3cqjtnosqhEipd%2FDWxm3MQq7bZtsXn60nJu'>Змінити пароль</a></p>

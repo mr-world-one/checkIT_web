@@ -1,0 +1,65 @@
+@model List<CheckIT.Web.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Користувачі";
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Користувачі</h1>
+        <div class="text-muted-2">Керування доступом (блокування/видалення)</div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Dashboard" data-transition="left">Назад</a>
+</section>
+
+<div class="table-pro reveal">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th style="min-width: 240px;">Ім'я</th>
+            <th style="min-width: 300px;">Email</th>
+            <th style="min-width: 140px;">Статус</th>
+            <th class="text-end" style="min-width: 260px;">Дії</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>
+                    <div class="fw-semibold">@(u.FullName ?? "—")</div>
+                    <div class="text-muted-2" style="font-size: 12px;">ID: @u.Id</div>
+                </td>
+                <td>@u.Email</td>
+                <td>
+                    @if (u.IsBlocked)
+                    {
+                        <span class="badge-pill up">Blocked</span>
+                    }
+                    else
+                    {
+                        <span class="badge-pill down">Active</span>
+                    }
+                </td>
+                <td class="text-end">
+                    <div class="d-inline-flex gap-2 flex-wrap justify-content-end">
+                        <form method="post" asp-controller="Admin" asp-action="SetBlocked">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@u.Id" />
+                            <input type="hidden" name="blocked" value="@(u.IsBlocked ? "false" : "true")" />
+                            <button class="btn btn-sm @(u.IsBlocked ? "btn-outline-success" : "btn-outline-warning")" type="submit">
+                                @(u.IsBlocked ? "Розблокувати" : "Заблокувати")
+                            </button>
+                        </form>
+
+                        <form method="post" asp-controller="Admin" asp-action="Delete" onsubmit="return confirm('Видалити користувача?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@u.Id" />
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Видалити</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

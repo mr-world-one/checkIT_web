@@ -1,0 +1,59 @@
+@model string[]
+@{
+    ViewData["Title"] = "Логи";
+    var message = ViewBag.Message as string;
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Логи</h1>
+        <div class="text-muted-2">Останні записи (до 500 рядків)</div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Dashboard" data-transition="left">Назад</a>
+</section>
+
+<section class="card-pro p-4 reveal mb-3">
+    <form method="get">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Від (дата)</label>
+                <input class="form-control" type="date" name="from" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">До (дата)</label>
+                <input class="form-control" type="date" name="to" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Рівень</label>
+                <select class="form-select" name="level">
+                    <option value="">(всі)</option>
+                    <option value="INFO">INFO</option>
+                    <option value="WARN">WARN</option>
+                    <option value="ERROR">ERROR</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-pro w-100" type="submit">Фільтрувати</button>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(message))
+    {
+        <div class="mt-3 toast-card error">@message</div>
+    }
+</section>
+
+@if (Model.Length == 0)
+{
+    <div class="text-muted-2">Логи відсутні</div>
+}
+else
+{
+    <div class="card-pro p-3 reveal" style="background:#0b1020;color:#d7e1ff; overflow:auto; max-height: 60vh; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px;">
+        @foreach (var line in Model)
+        {
+            <div>@line</div>
+        }
+    </div>
+}

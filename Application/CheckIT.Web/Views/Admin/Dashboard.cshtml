@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Адмін";
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Адмін?панель</h1>
+        <div class="text-muted-2">Статистика та керування доступом</div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">На головну</a>
+</section>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card-pro p-4 reveal">
+            <div class="text-muted-2">Всього користувачів</div>
+            <div class="fs-3 fw-bold">@ViewBag.TotalUsers</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-pro p-4 reveal">
+            <div class="text-muted-2">Заблоковано</div>
+            <div class="fs-3 fw-bold">@ViewBag.BlockedUsers</div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 d-flex gap-2 flex-wrap">
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Users" data-transition="right">Користувачі</a>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Logs" data-transition="right">Логи</a>
+</div>

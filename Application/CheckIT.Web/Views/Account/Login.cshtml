@@ -1,0 +1,40 @@
+@model CheckIT.Web.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "¬х≥д";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <section class="card-pro p-4 p-md-5 reveal">
+            <h1 class="h4 mb-3 text-center">¬х≥д</h1>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <form method="post" asp-controller="Account" asp-action="Login">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Email">Email</label>
+                    <input class="form-control" asp-for="Email" placeholder="email@example.com" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Password">ѕароль</label>
+                    <input class="form-control" asp-for="Password" type="password" placeholder="ѕароль" />
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+
+                <button class="btn btn-checkit w-100" type="submit">”в≥йти</button>
+            </form>
+
+            <div class="d-flex justify-content-end mt-3">
+                <a class="text-decoration-none" asp-controller="Account" asp-action="Register" data-transition="right">–еЇстрац≥€</a>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
