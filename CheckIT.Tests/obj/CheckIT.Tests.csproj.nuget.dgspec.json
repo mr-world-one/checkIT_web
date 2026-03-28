@@ -1,0 +1,223 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Check_IT\\Check_IT\\CheckIT.Tests\\CheckIT.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Check_IT\\Check_IT\\CheckIT.Tests\\CheckIT.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Check_IT\\Check_IT\\CheckIT.Tests\\CheckIT.Tests.csproj",
+        "projectName": "CheckIT.Tests",
+        "projectPath": "C:\\Check_IT\\Check_IT\\CheckIT.Tests\\CheckIT.Tests.csproj",
+        "packagesPath": "C:\\Users\\it-support\\.nuget\\packages\\",
+        "outputPath": "C:\\Check_IT\\Check_IT\\CheckIT.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\it-support\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Check_IT\\Check_IT\\CheckIT.Web\\CheckIT.Web.csproj": {
+                "projectPath": "C:\\Check_IT\\Check_IT\\CheckIT.Web\\CheckIT.Web.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.12.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.12.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "xunit.abstractions": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
+            "xunit.extensibility.core": {
+              "target": "Package",
+              "version": "[2.7.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.5.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Check_IT\\Check_IT\\CheckIT.Web\\CheckIT.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Check_IT\\Check_IT\\CheckIT.Web\\CheckIT.Web.csproj",
+        "projectName": "CheckIT.Web",
+        "projectPath": "C:\\Check_IT\\Check_IT\\CheckIT.Web\\CheckIT.Web.csproj",
+        "packagesPath": "C:\\Users\\it-support\\.nuget\\packages\\",
+        "outputPath": "C:\\Check_IT\\Check_IT\\CheckIT.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\it-support\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.104.2, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Selenium.Support": {
+              "target": "Package",
+              "version": "[4.27.0, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.27.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
