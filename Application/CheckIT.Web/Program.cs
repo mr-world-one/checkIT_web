@@ -1,4 +1,4 @@
-﻿using CheckIT.Web.Data;
+using CheckIT.Web.Data;
 using CheckIT.Web.Infrastructure;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
@@ -33,7 +33,7 @@ builder.Services
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options =>
+builder.Services.QConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
