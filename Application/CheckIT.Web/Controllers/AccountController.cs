@@ -1,4 +1,4 @@
-using CheckIT.Web.Models;
+п»їusing CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using CheckIT.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -45,13 +45,13 @@ public class AccountController : Controller
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Невірні дані");
+                ModelState.AddModelError(string.Empty, "РќРµРІС–СЂРЅС– РґР°РЅС–");
                 return View(model);
             }
 
             if (user.IsBlocked)
             {
-                ModelState.AddModelError(string.Empty, "Акаунт заблоковано адміністратором");
+                ModelState.AddModelError(string.Empty, "РђРєР°СѓРЅС‚ Р·Р°Р±Р»РѕРєРѕРІР°РЅРѕ Р°РґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂРѕРј");
                 return View(model);
             }
 
@@ -63,24 +63,24 @@ public class AccountController : Controller
 
             if (result.Succeeded)
             {
-                TempData["Success"] = $"Вхід виконано. Вітаємо, {user.FullName ?? user.Email}!";
+                TempData["Success"] = $"Р’С…С–Рґ РІРёРєРѕРЅР°РЅРѕ. Р’С–С‚Р°С”РјРѕ, {user.FullName ?? user.Email}!";
                 return RedirectToAction("Index", "Home");
             }
 
             if (result.IsLockedOut)
             {
                 _logger.Warn($"Identity lockout for '{email}'");
-                ModelState.AddModelError(string.Empty, "Забагато спроб. Спробуйте пізніше.");
+                ModelState.AddModelError(string.Empty, "Р—Р°Р±Р°РіР°С‚Рѕ СЃРїСЂРѕР±. РЎРїСЂРѕР±СѓР№С‚Рµ РїС–Р·РЅС–С€Рµ.");
                 return View(model);
             }
 
-            ModelState.AddModelError(string.Empty, "Невірні дані");
+            ModelState.AddModelError(string.Empty, "РќРµРІС–СЂРЅС– РґР°РЅС–");
             return View(model);
         }
         catch (Exception ex)
         {
             _logger.Error($"Login server error for '{email}'", ex);
-            ModelState.AddModelError(string.Empty, "Помилка сервера");
+            ModelState.AddModelError(string.Empty, "РџРѕРјРёР»РєР° СЃРµСЂРІРµСЂР°");
             return View(model);
         }
     }
@@ -116,8 +116,20 @@ public class AccountController : Controller
             var result = await _userManager.CreateAsync(user, model.Password!);
             if (!result.Succeeded)
             {
+                var hasPasswordError = false;
                 foreach (var e in result.Errors)
+                {
                     ModelState.AddModelError(string.Empty, e.Description);
+                    if ((e.Code ?? string.Empty).Contains("Password", StringComparison.OrdinalIgnoreCase))
+                        hasPasswordError = true;
+                }
+
+                if (hasPasswordError)
+                {
+                    ModelState.AddModelError(nameof(RegisterViewModel.Password),
+                        "РџР°СЂРѕР»СЊ РјР°С” РјС–СЃС‚РёС‚Рё РјС–РЅС–РјСѓРј 8 СЃРёРјРІРѕР»С–РІ, РїСЂРёРЅР°Р№РјРЅС– РѕРґРЅСѓ РІРµР»РёРєСѓ Р»С–С‚РµСЂСѓ, РѕРґРЅСѓ РјР°Р»Сѓ Р»С–С‚РµСЂСѓ, РѕРґРЅСѓ С†РёС„СЂСѓ С‚Р° РѕРґРёРЅ СЃРїРµС†С–Р°Р»СЊРЅРёР№ СЃРёРјРІРѕР».");
+                }
+
                 return View(model);
             }
 
@@ -125,13 +137,13 @@ public class AccountController : Controller
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            TempData["Success"] = "Реєстрація успішна.";
+            TempData["Success"] = "Р РµС”СЃС‚СЂР°С†С–СЏ СѓСЃРїС–С€РЅР°.";
             return RedirectToAction("Index", "Home");
         }
         catch (Exception ex)
         {
             _logger.Error($"Register server error for '{email}'", ex);
-            ModelState.AddModelError(string.Empty, "Помилка реєстрації, спробуйте пізніше");
+            ModelState.AddModelError(string.Empty, "РЎС‚Р°Р»Р°СЃСЏ РїРѕРјРёР»РєР°, СЃРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·");
             return View(model);
         }
     }
@@ -142,7 +154,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
-        TempData["Success"] = "Ви вийшли з акаунту.";
+        TempData["Success"] = "Р’Рё РІРёР№С€Р»Рё Р· Р°РєР°СѓРЅС‚Сѓ.";
         return RedirectToAction("Index", "Home");
     }
 

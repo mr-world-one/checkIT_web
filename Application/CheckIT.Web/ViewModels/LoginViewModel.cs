@@ -1,13 +1,13 @@
-using System.ComponentModel.DataAnnotations;
+п»їusing System.ComponentModel.DataAnnotations;
 
 namespace CheckIT.Web.ViewModels;
 
 public class LoginViewModel
 {
-    [Required(ErrorMessage = "Вкажіть email")]
-    [EmailAddress(ErrorMessage = "Некоректний формат email")]
+    [Required(ErrorMessage = "Р’РєР°Р¶С–С‚СЊ email")]
+    [EmailAddress(ErrorMessage = "РќРµРєРѕСЂРµРєС‚РЅРёР№ С„РѕСЂРјР°С‚ email")]
     public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Вкажіть пароль")]
+    [Required(ErrorMessage = "Р’РєР°Р¶С–С‚СЊ РїР°СЂРѕР»СЊ")]
     public string? Password { get; set; }
 }

@@ -1,4 +1,4 @@
-using CheckIT.Web.Controllers;
+﻿using CheckIT.Web.Controllers;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using FluentAssertions;

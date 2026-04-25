@@ -1,4 +1,4 @@
-using CheckIT.Web.Services;
+п»їusing CheckIT.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +25,7 @@ public class ProzorroAnalysisController : Controller
     {
         if (string.IsNullOrWhiteSpace(tenderId))
         {
-            ModelState.AddModelError(string.Empty, "Введіть ID тендеру / контракту");
+            ModelState.AddModelError(string.Empty, "Р’РІРµРґС–С‚СЊ ID С‚РµРЅРґРµСЂСѓ / РєРѕРЅС‚СЂР°РєС‚Сѓ");
             return View("Index");
         }
 
@@ -35,7 +35,7 @@ public class ProzorroAnalysisController : Controller
             if (results.Count == 0)
             {
                 _logger.Warn($"Prozorro analysis: no items for id '{tenderId}'");
-                ModelState.AddModelError(string.Empty, "Тендер без цін або позицій");
+                ModelState.AddModelError(string.Empty, "РўРµРЅРґРµСЂ Р±РµР· С†С–РЅ Р°Р±Рѕ РїРѕР·РёС†С–Р№");
                 return View("Index");
             }
             return View("Results", results);
@@ -43,7 +43,7 @@ public class ProzorroAnalysisController : Controller
         catch (Exception ex)
         {
             _logger.Error($"Prozorro analysis: failed for id '{tenderId}'", ex);
-            ModelState.AddModelError(string.Empty, "Помилка з'єднання");
+            ModelState.AddModelError(string.Empty, "РџРѕРјРёР»РєР° Р·'С”РґРЅР°РЅРЅСЏ");
             return View("Index");
         }
     }

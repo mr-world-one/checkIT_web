@@ -1,4 +1,4 @@
-using CheckIT.Web.Models;
+﻿using CheckIT.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

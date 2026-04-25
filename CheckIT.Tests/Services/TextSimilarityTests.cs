@@ -1,4 +1,4 @@
-using CheckIT.Web.Services;
+п»їusing CheckIT.Web.Services;
 using FluentAssertions;
 
 namespace CheckIT.Tests.Services;
@@ -26,7 +26,7 @@ public class TextSimilarityTests
         var pairs = new[]
         {
             ("Lenovo ThinkPad X1", "ThinkPad X1 Carbon"),
-            ("Кабель USB", "USB кабель 2m"),
+            ("РљР°Р±РµР»СЊ USB", "USB РєР°Р±РµР»СЊ 2m"),
             ("HP 250 G8", "HP 250"),
         };
 

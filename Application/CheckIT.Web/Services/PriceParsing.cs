@@ -1,8 +1,8 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CheckIT.Web.Services;
 
-internal static class PriceParsing
+public static class PriceParsing
 {
     public static bool TryParsePrice(string? s, out decimal value)
     {

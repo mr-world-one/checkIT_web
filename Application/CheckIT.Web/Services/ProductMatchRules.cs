@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+п»їusing System.Text.RegularExpressions;
 
 namespace CheckIT.Web.Services;
 
@@ -6,18 +6,18 @@ public static class ProductMatchRules
 {
     private static readonly string[] AccessoryBadWords =
     [
-        "чохол", "сумка", "кейс", "наклад", "плівк", "скло", "захисн", "клавіатур", "миша", "мишк",
-        "кабель", "перехідник", "адаптер", "заряд", "блок живлення", "живлення", "кронштейн",
-        "картридж", "тонер", "папір", "стікер", "наклейк", "тримач", "підставк", "аксесуар",
-        "ремін", "панель", "кришка", "шлейф", "материн", "плата", "корпус", "вентилятор",
-        "комплектуюч", "запчаст", "контролер", "роз'єм", "роз\"єм"
+        "С‡РѕС…РѕР»", "СЃСѓРјРєР°", "РєРµР№СЃ", "РЅР°РєР»Р°Рґ", "РїР»С–РІРє", "СЃРєР»Рѕ", "Р·Р°С…РёСЃРЅ", "РєР»Р°РІС–Р°С‚СѓСЂ", "РјРёС€Р°", "РјРёС€Рє",
+        "РєР°Р±РµР»СЊ", "РїРµСЂРµС…С–РґРЅРёРє", "Р°РґР°РїС‚РµСЂ", "Р·Р°СЂСЏРґ", "Р±Р»РѕРє Р¶РёРІР»РµРЅРЅСЏ", "Р¶РёРІР»РµРЅРЅСЏ", "РєСЂРѕРЅС€С‚РµР№РЅ",
+        "РєР°СЂС‚СЂРёРґР¶", "С‚РѕРЅРµСЂ", "РїР°РїС–СЂ", "СЃС‚С–РєРµСЂ", "РЅР°РєР»РµР№Рє", "С‚СЂРёРјР°С‡", "РїС–РґСЃС‚Р°РІРє", "Р°РєСЃРµСЃСѓР°СЂ",
+        "СЂРµРјС–РЅ", "РїР°РЅРµР»СЊ", "РєСЂРёС€РєР°", "С€Р»РµР№С„", "РјР°С‚РµСЂРёРЅ", "РїР»Р°С‚Р°", "РєРѕСЂРїСѓСЃ", "РІРµРЅС‚РёР»СЏС‚РѕСЂ",
+        "РєРѕРјРїР»РµРєС‚СѓСЋС‡", "Р·Р°РїС‡Р°СЃС‚", "РєРѕРЅС‚СЂРѕР»РµСЂ", "СЂРѕР·'С”Рј", "СЂРѕР·\"С”Рј"
     ];
 
     // categories where cheap prices are expected (so we should not apply high min-price)
     private static readonly string[] CheapGoodsHints =
     [
-        "мишка", "миша", "m170", "m185", "клавіат", "кабель", "перехідник", "кетчуп", "соус", "масло",
-        "чай", "кава", "цукор", "круп", "печиво", "шоколад"
+        "РјРёС€РєР°", "РјРёС€Р°", "m170", "m185", "РєР»Р°РІС–Р°С‚", "РєР°Р±РµР»СЊ", "РїРµСЂРµС…С–РґРЅРёРє", "РєРµС‚С‡СѓРї", "СЃРѕСѓСЃ", "РјР°СЃР»Рѕ",
+        "С‡Р°Р№", "РєР°РІР°", "С†СѓРєРѕСЂ", "РєСЂСѓРї", "РїРµС‡РёРІРѕ", "С€РѕРєРѕР»Р°Рґ"
     ];
 
     public static bool IsAccessoryLikely(string query, string title)
@@ -73,20 +73,20 @@ public static class ProductMatchRules
         foreach (var p in parts)
         {
             if (p.Length < 3) continue;
-            if (Regex.IsMatch(p, @"[a-zа-яіїє]+\d+|\d+[a-zа-яіїє]+", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(p, @"[a-zР°-СЏС–С—С”]+\d+|\d+[a-zР°-СЏС–С—С”]+", RegexOptions.IgnoreCase))
                 set.Add(p);
             else if (Regex.IsMatch(p, @"\d{2,}", RegexOptions.IgnoreCase))
                 set.Add(p);
-            else if (Regex.IsMatch(p, @"[a-zа-яіїє]{3,}", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(p, @"[a-zР°-СЏС–С—С”]{3,}", RegexOptions.IgnoreCase))
                 set.Add(p);
         }
 
         // remove very generic words that often appear everywhere
-        set.Remove("ноутбук");
-        set.Remove("монітор");
-        set.Remove("мишка");
-        set.Remove("миша");
-        set.Remove("холодильник");
+        set.Remove("РЅРѕСѓС‚Р±СѓРє");
+        set.Remove("РјРѕРЅС–С‚РѕСЂ");
+        set.Remove("РјРёС€РєР°");
+        set.Remove("РјРёС€Р°");
+        set.Remove("С…РѕР»РѕРґРёР»СЊРЅРёРє");
 
         return set;
     }
@@ -95,7 +95,7 @@ public static class ProductMatchRules
     {
         if (string.IsNullOrWhiteSpace(s)) return string.Empty;
         s = s.ToLowerInvariant();
-        s = Regex.Replace(s, "[^a-zа-яіїє0-9 ]+", " ");
+        s = Regex.Replace(s, "[^a-zР°-СЏС–С—С”0-9 ]+", " ");
         s = Regex.Replace(s, "\\s+", " ").Trim();
         return s;
     }
