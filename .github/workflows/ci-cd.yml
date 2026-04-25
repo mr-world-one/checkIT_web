@@ -18,13 +18,13 @@ jobs:
         dotnet-version: 9.0.x
     
     - name: Restore dependencies
-      run: dotnet restore CheckIT_Tests.sln
-    
+      run: dotnet restore Application/CheckIT.Web/CheckIT.Web.csproj
+
     - name: Build
-      run: dotnet build CheckIT_Tests.sln --no-restore --configuration Release
-    
+      run: dotnet build Application/CheckIT.Web/CheckIT.Web.csproj --no-restore --configuration Release
+
     - name: Run tests
-      run: dotnet test CheckIT_Tests.sln --no-build --verbosity normal
+      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj --no-build --verbosity normal
 
   docker:
     needs: test
