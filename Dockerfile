@@ -1,46 +1,46 @@
-# Базовий образ з .NET 9 Runtime
+# Р‘Р°Р·РѕРІРёР№ РѕР±СЂР°Р· Р· .NET 9 Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER root
 WORKDIR /app
 EXPOSE 8080
 
-# Встановлюємо Chromium та ChromeDriver для Selenium
+# Р’СЃС‚Р°РЅРѕРІР»СЋС”РјРѕ Chromium С‚Р° ChromeDriver РґР»СЏ Selenium
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        chromium \
        chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
-# Вказуємо шлях до ChromeDriver, щоб C# код міг його знайти
+# Р’РєР°Р·СѓС”РјРѕ С€Р»СЏС… РґРѕ ChromeDriver, С‰РѕР± C# РєРѕРґ РјС–Рі Р№РѕРіРѕ Р·РЅР°Р№С‚Рё
 ENV CHECKIT_CHROMEDRIVER_PATH=/usr/bin/chromedriver
 
-# Створюємо директорію для логів заздалегідь та даємо права доступу користувачу "app"
+# РЎС‚РІРѕСЂСЋС”РјРѕ РґРёСЂРµРєС‚РѕСЂС–СЋ РґР»СЏ Р»РѕРіС–РІ Р·Р°Р·РґР°Р»РµРіС–РґСЊ С‚Р° РґР°С”РјРѕ РїСЂР°РІР° РґРѕСЃС‚СѓРїСѓ РєРѕСЂРёСЃС‚СѓРІР°С‡Сѓ "app"
 RUN mkdir -p /app/Logs \
     && chown -R app:app /app/Logs
 
-# Образ для збірки з .NET 9 SDK
+# РћР±СЂР°Р· РґР»СЏ Р·Р±С–СЂРєРё Р· .NET 9 SDK
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Копіюємо файли проєктів і відновлюємо залежності
-COPY ["CheckIT.Web/CheckIT.Web.csproj", "CheckIT.Web/"]
-RUN dotnet restore "CheckIT.Web/CheckIT.Web.csproj"
+# РљРѕРїС–СЋС”РјРѕ С„Р°Р№Р»Рё РїСЂРѕС”РєС‚С–РІ С– РІС–РґРЅРѕРІР»СЋС”РјРѕ Р·Р°Р»РµР¶РЅРѕСЃС‚С–
+COPY ["Application/CheckIT.Web/CheckIT.Web.csproj", "Application/CheckIT.Web/"]
+RUN dotnet restore "Application/CheckIT.Web/CheckIT.Web.csproj"
 
-# Копіюємо весь код та білдимо
+# РљРѕРїС–СЋС”РјРѕ РІРµСЃСЊ РєРѕРґ С‚Р° Р±С–Р»РґРёРјРѕ
 COPY . .
-WORKDIR "/src/CheckIT.Web"
+WORKDIR "/src/Application/CheckIT.Web"
 RUN dotnet build "CheckIT.Web.csproj" -c Release -o /app/build
 
-# Публікація оптимізованої версії
+# РџСѓР±Р»С–РєР°С†С–СЏ РѕРїС‚РёРјС–Р·РѕРІР°РЅРѕС— РІРµСЂСЃС–С—
 FROM build AS publish
 RUN dotnet publish "CheckIT.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Фінальний образ
+# Р¤С–РЅР°Р»СЊРЅРёР№ РѕР±СЂР°Р·
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Запускаємо під непривілейованим користувачем (стандарт для .NET контейнерів)
+# Р—Р°РїСѓСЃРєР°С”РјРѕ РїС–Рґ РЅРµРїСЂРёРІС–Р»РµР№РѕРІР°РЅРёРј РєРѕСЂРёСЃС‚СѓРІР°С‡РµРј (СЃС‚Р°РЅРґР°СЂС‚ РґР»СЏ .NET РєРѕРЅС‚РµР№РЅРµСЂС–РІ)
 USER app
 
 ENTRYPOINT ["dotnet", "CheckIT.Web.dll"]
