@@ -77,13 +77,13 @@ public class AccountControllerTests
         var signInManager = CreateSignInManager(userManager.Object);
         var logger = new Mock<IAppLogger>();
 
-    //    var controller = CreateController(userManager, signInManager, logger);
+        var controller = CreateController(userManager, signInManager, logger);
 
-    //    var result = controller.Login();
+        var result = controller.Login();
 
-    //    var view = result.Should().BeOfType<ViewResult>().Which;
-    //    view.Model.Should().BeOfType<LoginViewModel>();
-    //}
+        var view = result.Should().BeOfType<ViewResult>().Which;
+        view.Model.Should().BeOfType<LoginViewModel>();
+    }
 
     [Fact]
     public async Task Login_Post_WhenModelInvalid_ReturnsViewSameModel()
