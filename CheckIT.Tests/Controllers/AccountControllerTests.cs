@@ -1,4 +1,4 @@
-﻿using CheckIT.Tests.TestDoubles;
+using CheckIT.Tests.TestDoubles;
 using CheckIT.Web.Controllers;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
@@ -55,7 +55,7 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public void Login_Get_WhenAuthenticated_RedirectsHome()
+    public void QLogin_Get_WhenAuthenticated_RedirectsHome()
     {
         var userManager = CreateUserManager();
         var signInManager = CreateSignInManager(userManager.Object);
