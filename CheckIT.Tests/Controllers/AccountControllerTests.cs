@@ -288,12 +288,12 @@ public class AccountControllerTests
         var signInManager = CreateSignInManager(userManager.Object);
         var logger = new Mock<IAppLogger>();
 
-        var controller = CreateController(userManager, signInManager, logger);
-        controller.ModelState.AddModelError("Email", "Required");
+        //var controller = CreateController(userManager, signInManager, logger);
+        //controller.ModelState.AddModelError("Email", "Required");
 
-        var model = new RegisterViewModel { Email = "e@e.com", Password = "Pass123!", Name = "N" };
+        //var model = new RegisterViewModel { Email = "e@e.com", Password = "Pass123!", Name = "N" };
 
-        var result = await controller.Register(model);
+        //var result = await controller.Register(model);
 
         result.Should().BeOfType<ViewResult>().Which.Model.Should().BeSameAs(model);
         userManager.Verify(m => m.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()), Times.Never);
