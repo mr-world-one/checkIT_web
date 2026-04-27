@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CheckIT.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78581e9f3151413cbbdf96496e2a3d32b4062397")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70bb75e0e93bd9613d013ede3b01dccc33af5fba")]
 [assembly: System.Reflection.AssemblyProductAttribute("CheckIT.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CheckIT.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

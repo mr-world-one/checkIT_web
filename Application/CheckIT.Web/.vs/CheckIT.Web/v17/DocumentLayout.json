@@ -14,8 +14,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e78e0cf7-2e4e-48a7-bf7f-a94d9330a3be}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,18 +32,10 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\bogda\\source\\repos\\checkIT_web\\Application\\CheckIT.Web\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T21:21:20.555Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e78e0cf7-2e4e-48a7-bf7f-a94d9330a3be}"
             }
           ]
         },
