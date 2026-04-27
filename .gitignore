@@ -29,3 +29,6 @@
 "*.log" 
 "Logs/" 
 ".vs/" 
+".vs/" 
+"obj/" 
+"bin/" 
