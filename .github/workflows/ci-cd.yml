@@ -24,7 +24,7 @@ jobs:
       run: dotnet build Application/CheckIT.Web/CheckIT.Web.csproj --no-restore --configuration Release
 
     - name: Run tests
-      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj --no-build --verbosity normal
+      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj 
 
   docker:
     needs: test
