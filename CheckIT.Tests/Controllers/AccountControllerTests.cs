@@ -55,7 +55,7 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public void QLogin_Get_WhenAuthenticated_RedirectsHome()
+    public void Login_Get_WhenAuthenticated_RedirectsHome()
     {
         var userManager = CreateUserManager();
         var signInManager = CreateSignInManager(userManager.Object);
@@ -73,7 +73,7 @@ public class AccountControllerTests
     [Fact]
     public void Login_Get_WhenAnonymous_ReturnsViewWithModel()
     {
-        var userManager = CreateUserManager();
+        var userManager = tttCreateUserManager();
         var signInManager = CreateSignInManager(userManager.Object);
         var logger = new Mock<IAppLogger>();
 
