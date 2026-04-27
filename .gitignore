@@ -28,3 +28,4 @@
 "**/Release/" 
 "*.log" 
 "Logs/" 
+".vs/" 
