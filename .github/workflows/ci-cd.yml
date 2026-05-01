@@ -28,7 +28,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore (ignore NuGet vulnerability audit failures)
-        run: dotnet restore ${{ env.WEB_CSPROJ }} /p:NuGetAudit=false
+        run: dotnet restore ${{ env.WEB_CSPROJ }} 
 
       - name: Build
         run: dotnet build ${{ env.WEB_CSPROJ }} 
