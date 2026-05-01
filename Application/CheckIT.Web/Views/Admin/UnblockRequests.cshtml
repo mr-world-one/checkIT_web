@@ -1,0 +1,74 @@
+@using CheckIT.Web.Models
+@model IReadOnlyList<UnblockRequest>
+@{
+    ViewData["Title"] = "Запити на розблокування";
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Запити на розблокування</h1>
+        <div class="text-muted-2">Скарги/запити від заблокованих користувачів</div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Dashboard">Назад</a>
+</section>
+
+<div class="card-pro p-3 reveal">
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="text-muted-2">Запитів поки немає.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Користувач</th>
+                        <th>Статус</th>
+                        <th>Створено (UTC)</th>
+                        <th>Повідомлення</th>
+                        <th style="width: 420px;">Дія</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model)
+                    {
+                        <tr>
+                            <td>@r.Id</td>
+                            <td>
+                                <div class="fw-semibold">@(r.User?.Email ?? r.UserId)</div>
+                                <div class="text-muted-2" style="font-size: 12px;">@r.UserId</div>
+                            </td>
+                            <td>@r.Status</td>
+                            <td>@r.CreatedAtUtc.UtcDateTime.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td style="max-width: 420px; white-space: pre-wrap;">@r.Message</td>
+                            <td>
+                                @if (r.Status == UnblockRequestStatus.Open)
+                                {
+                                    <form asp-action="ResolveUnblockRequest" method="post" class="d-grid gap-2">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@r.Id" />
+                                        <textarea class="form-control" name="adminResponse" rows="2" maxlength="1000" placeholder="Коментар адміністратора (необов'язково)"></textarea>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <button class="btn btn-sm btn-success" name="approved" value="true" type="submit">Підтвердити</button>
+                                            <button class="btn btn-sm btn-outline-danger" name="approved" value="false" type="submit">Відхилити</button>
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <div class="text-muted-2">Resolved: @(r.ResolvedAtUtc?.UtcDateTime.ToString("yyyy-MM-dd HH:mm") ?? "-")</div>
+                                    @if (!string.IsNullOrWhiteSpace(r.AdminResponse))
+                                    {
+                                        <div style="white-space: pre-wrap;">@r.AdminResponse</div>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

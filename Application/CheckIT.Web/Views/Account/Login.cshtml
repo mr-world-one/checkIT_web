@@ -1,12 +1,29 @@
-﻿@model CheckIT.Web.ViewModels.LoginViewModel
+@model CheckIT.Web.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Вхід";
+    var blockedMsg = TempData["Blocked"] as string;
+    var blockedEmail = TempData["BlockedUserEmail"] as string;
+    if (!string.IsNullOrWhiteSpace(blockedEmail) && string.IsNullOrWhiteSpace(Model.Email))
+    {
+        Model.Email = blockedEmail;
+    }
 }
 
 <div class="row justify-content-center">
     <div class="col-md-5">
         <section class="card-pro p-4 p-md-5 reveal">
             <h1 class="h4 mb-3 text-center">Вхід</h1>
+
+            @if (!string.IsNullOrWhiteSpace(blockedMsg))
+            {
+                <div class="alert alert-warning" role="alert">
+                    <div class="fw-semibold">Акаунт заблоковано</div>
+                    <div>@blockedMsg</div>
+                    <div class="mt-2">
+                        <a class="btn btn-sm btn-outline-pro" asp-controller="Unblock" asp-action="Public">Подати запит на розблокування</a>
+                    </div>
+                </div>
+            }
 
             <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -23,6 +40,11 @@
                     <label class="form-label" asp-for="Password">Пароль</label>
                     <input class="form-control" asp-for="Password" type="password" placeholder="Пароль" />
                     <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="RememberMe" />
+                    <label class="form-check-label" asp-for="RememberMe"></label>
                 </div>
 
                 <button class="btn btn-checkit w-100" type="submit">Увійти</button>

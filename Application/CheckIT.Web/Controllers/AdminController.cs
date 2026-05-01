@@ -1,4 +1,4 @@
-﻿using CheckIT.Web.Models;
+using CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +10,13 @@ namespace CheckIT.Web.Controllers;
 public class AdminController : Controller
 {
     private readonly AdminService _admin;
+    private readonly UnblockRequestService _unblock;
     private readonly IHostEnvironment _env;
 
-    public AdminController(AdminService admin, IHostEnvironment env)
+    public AdminController(AdminService admin, UnblockRequestService unblock, IHostEnvironment env)
     {
         _admin = admin;
+        _unblock = unblock;
         _env = env;
     }
 
@@ -97,5 +99,21 @@ public class AdminController : Controller
 
         var prefix = line.Length >= 23 ? line[..23] : line;
         return DateTime.TryParse(prefix, out ts);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> UnblockRequests(CancellationToken ct)
+    {
+        var items = await _unblock.GetAllAsync(ct);
+        return View(items);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResolveUnblockRequest(int id, bool approved, string? adminResponse, CancellationToken ct)
+    {
+        await _unblock.ResolveAsync(id, approved, adminResponse, ct);
+        TempData["Success"] = approved ? "Запит підтверджено. Користувача розблоковано." : "Запит відхилено.";
+        return RedirectToAction(nameof(UnblockRequests));
     }
 }

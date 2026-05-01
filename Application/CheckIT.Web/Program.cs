@@ -49,6 +49,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<UnblockRequestService>();
 builder.Services.AddScoped<ExcelProcessingService>();
 builder.Services.AddSingleton<ProzorroService>();
 builder.Services.AddScoped<ProzorroProcessor>();

@@ -1,4 +1,4 @@
-﻿using CheckIT.Web.Models;
+using CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using CheckIT.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -49,21 +49,26 @@ public class AccountController : Controller
                 return View(model);
             }
 
-            if (user.IsBlocked)
-            {
-                ModelState.AddModelError(string.Empty, "Акаунт заблоковано адміністратором");
-                return View(model);
-            }
-
+            // Allow password check; blocked users will be informed after successful credential validation.
             var result = await _signInManager.PasswordSignInAsync(
-                userName: user.UserName!,
+                userName: email,
                 password: model.Password!,
-                isPersistent: false,
+                isPersistent: model.RememberMe,
                 lockoutOnFailure: true);
 
             if (result.Succeeded)
             {
-                TempData["Success"] = $"Вхід виконано. Вітаємо, {user.FullName ?? user.Email}!";
+                if (user.IsBlocked)
+                {
+                    // Do not keep blocked users signed-in.
+                    await _signInManager.SignOutAsync();
+
+                    TempData["BlockedUserEmail"] = email;
+                    TempData["Blocked"] = "Акаунт заблоковано адміністратором. Ви можете подати скаргу/запит на розблокування.";
+                    return RedirectToAction(nameof(Login));
+                }
+
+                TempData["Success"] = "Вхід успішний";
                 return RedirectToAction("Index", "Home");
             }
 
