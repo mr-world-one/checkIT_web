@@ -19,12 +19,13 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore Application/CheckIT.Web/CheckIT.Web.csproj
-
+    
     - name: Build
       run: dotnet build Application/CheckIT.Web/CheckIT.Web.csproj --no-restore --configuration Release
-
+    
     - name: Run tests
-      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj 
+      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj --verbosity normal
+
     - name: Check migrations folder exists
       run: |
           test -d "Application/CheckIT.Web/Data/Migrations"
