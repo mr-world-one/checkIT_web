@@ -41,7 +41,8 @@ public class AdminControllerTests
         env.SetupGet(e => e.ContentRootPath).Returns(contentRoot);
 
         var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
-        var unblock = new UnblockRequestService(db.Object);
+        var userManager = CreateUserManagerWithUsers([]);
+        var unblock = new UnblockRequestService(db.Object, userManager.Object);
 
         var controller = new AdminController(admin, unblock, env.Object);
         controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };

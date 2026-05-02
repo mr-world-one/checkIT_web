@@ -1,5 +1,6 @@
 using CheckIT.Web.Data;
 using CheckIT.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CheckIT.Web.Services;
@@ -7,10 +8,12 @@ namespace CheckIT.Web.Services;
 public class UnblockRequestService
 {
     private readonly AppDbContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public UnblockRequestService(AppDbContext db)
+    public UnblockRequestService(AppDbContext db, UserManager<ApplicationUser> userManager)
     {
         _db = db;
+        _userManager = userManager;
     }
 
     public Task<bool> HasOpenRequestAsync(string userId, CancellationToken ct = default)
@@ -53,7 +56,13 @@ public class UnblockRequestService
         req.ResolvedAtUtc = DateTimeOffset.UtcNow;
 
         if (approved && req.User != null)
+        {
             req.User.IsBlocked = false;
+
+            // Also clear Identity lockout, otherwise user may still be locked after unblock.
+            await _userManager.SetLockoutEndDateAsync(req.User, null);
+            await _userManager.ResetAccessFailedCountAsync(req.User);
+        }
 
         await _db.SaveChangesAsync(ct);
     }

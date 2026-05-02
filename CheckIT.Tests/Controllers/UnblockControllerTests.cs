@@ -41,7 +41,7 @@ public class UnblockControllerTests
     {
         var userManager = CreateUserManager();
         var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
-        var svc = new UnblockRequestService(db.Object);
+        var svc = new UnblockRequestService(db.Object, userManager.Object);
 
         var controller = CreateController(userManager, svc);
 
@@ -57,7 +57,7 @@ public class UnblockControllerTests
     {
         var userManager = CreateUserManager();
         var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
-        var svc = new UnblockRequestService(db.Object);
+        var svc = new UnblockRequestService(db.Object, userManager.Object);
 
         var controller = CreateController(userManager, svc);
         controller.ModelState.AddModelError("Email", "Required");
@@ -76,7 +76,7 @@ public class UnblockControllerTests
         userManager.Setup(m => m.FindByEmailAsync("u@e")).ReturnsAsync((ApplicationUser?)null);
 
         var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
-        var svc = new UnblockRequestService(db.Object);
+        var svc = new UnblockRequestService(db.Object, userManager.Object);
 
         var controller = CreateController(userManager, svc);
 
@@ -93,7 +93,7 @@ public class UnblockControllerTests
         userManager.Setup(m => m.FindByEmailAsync("u@e")).ReturnsAsync(new ApplicationUser { Id = "1", Email = "u@e", IsBlocked = false });
 
         var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
-        var svc = new UnblockRequestService(db.Object);
+        var svc = new UnblockRequestService(db.Object, userManager.Object);
 
         var controller = CreateController(userManager, svc);
 
