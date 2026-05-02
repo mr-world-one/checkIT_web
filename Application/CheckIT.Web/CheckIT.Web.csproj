@@ -23,4 +23,6 @@
     <PackageReference Include="Selenium.Support" Version="4.27.0" />
   </ItemGroup>
 
+  <ProjectReference Include="..\CheckIT.Tests\CheckIT.Tests.csproj" />
+	
 </Project>
