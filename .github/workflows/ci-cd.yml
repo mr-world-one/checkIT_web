@@ -11,7 +11,7 @@ permissions:
 
 env:
   DOTNET_VERSION: "9.0.x"
-  WEB_CSPROJ: "CheckIT.Web/CheckIT.Web.csproj"
+  WEB_CSPROJ: "Application/CheckIT.Web/CheckIT.Web.csproj"
   TEST_CSPROJ: "CheckIT.Tests/CheckIT.Tests.csproj"
   IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME }}/checkit-web"
 
@@ -37,8 +37,8 @@ jobs:
 
       - name: Check migrations folder exists
         run: |
-          test -d "CheckIT.Web/Data/Migrations"
-          ls -la "CheckIT.Web/Data/Migrations"
+          test -d "Application/CheckIT.Web/Data/Migrations"
+          ls -la "Application/CheckIT.Web/Data/Migrations"
 
   docker:
     needs: test
@@ -54,11 +54,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.MY_DOCKERHUB_TOKEN }}
 
-      - name: Build Docker image (latest + sha)
+      - name: Build Docker image (latest)
         run: |
-          docker build -t "${{ env.IMAGE_NAME }}:latest" -t "${{ env.IMAGE_NAME }}:${{ github.sha }}" .
+          docker build -t "${{ env.IMAGE_NAME }}:latest" .
 
-      - name: Push to Docker Hub (latest + sha)
+      - name: Push to Docker Hub (latest)
         run: |
           docker push "${{ env.IMAGE_NAME }}:latest"
-          docker push "${{ env.IMAGE_NAME }}:${{ github.sha }}"
