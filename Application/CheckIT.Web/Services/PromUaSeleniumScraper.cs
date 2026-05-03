@@ -18,7 +18,7 @@ public sealed class PromUaSeleniumScraper : IDisposable
     private readonly int _timeoutSeconds;
     private IWebDriver? _driver;
 
-    public PromUaSeleniumScraper(IAppLogger? logger = null, bool headless = true, int timeoutSeconds = 45)
+    public PromUaSeleniumScraper(IAppLogger? logger = null, bool headless = true, int timeoutSeconds = 25)
     {
         _logger = logger;
         _headless = headless;
