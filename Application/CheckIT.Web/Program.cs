@@ -2,6 +2,7 @@ using CheckIT.Web.Data;
 using CheckIT.Web.Infrastructure;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
+// /home is the persisted volume in App Service for Containers.
+builder.Services
+    .AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("/home/DataProtection-Keys"))
+    .SetApplicationName("CheckIT");
+
+builder.Services.AddHealthChecks();
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -74,6 +84,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health");
 
 app.MapControllerRoute(
     name: "default",
