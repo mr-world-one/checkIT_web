@@ -49,7 +49,13 @@ public class AccountController : Controller
                 return View(model);
             }
 
-            // Allow password check; blocked users will be informed after successful credential validation.
+            if (user.IsBlocked)
+            {
+                TempData["BlockedUserEmail"] = email;
+                TempData["Blocked"] = "Вас заблоковано. Подайте запит на розблокування, якщо виникло непорозуміння.";
+                return RedirectToAction(nameof(Login));
+            }
+
             var result = await _signInManager.PasswordSignInAsync(
                 userName: email,
                 password: model.Password!,
@@ -58,15 +64,6 @@ public class AccountController : Controller
 
             if (result.Succeeded)
             {
-                if (user.IsBlocked)
-                {
-                    await _signInManager.SignOutAsync();
-
-                    TempData["BlockedUserEmail"] = email;
-                    TempData["Blocked"] = "Вас заблоковано. Подайте запит на розблокування, якщо виникло непорозуміння.";
-                    return RedirectToAction(nameof(Login));
-                }
-
                 TempData["Success"] = "Вхід успішний";
                 return RedirectToAction("Index", "Home");
             }

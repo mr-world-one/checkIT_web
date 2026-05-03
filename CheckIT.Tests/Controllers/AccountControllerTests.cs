@@ -127,9 +127,6 @@ public class AccountControllerTests
             .ReturnsAsync(new ApplicationUser { UserName = "u", Email = "u@e", IsBlocked = true });
 
         var signInManager = CreateSignInManager(userManager.Object);
-        signInManager.Setup(s => s.PasswordSignInAsync("u@e", It.IsAny<string>(), false, false))
-            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
-
         var logger = new Mock<IAppLogger>();
 
         var controller = CreateController(userManager, signInManager, logger);
@@ -138,6 +135,8 @@ public class AccountControllerTests
 
         result.Should().BeOfType<RedirectToActionResult>().Which.ActionName.Should().Be(nameof(AccountController.Login));
         controller.TempData.Should().ContainKey("Blocked");
+
+        signInManager.Verify(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never);
     }
 
     [Fact]
