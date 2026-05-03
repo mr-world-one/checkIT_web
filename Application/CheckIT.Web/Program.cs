@@ -14,8 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
-// Use a writable local path for dev/test/CI; App Service uses /home which is persisted.
+
 var dpKeysPath = builder.Environment.IsProduction()
     ? "/home/DataProtection-Keys"
     : Path.Combine(builder.Environment.ContentRootPath, ".dpkeys");
@@ -86,10 +85,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapGet("/health", () => Results.Ok("Healthy")).AllowAnonymous();
+app.MapHealthChecks("/health");
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapHealthChecks("/health");
 
 app.MapControllerRoute(
     name: "default",
