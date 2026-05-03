@@ -35,6 +35,8 @@ RUN dotnet build "CheckIT.Web.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "CheckIT.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+RUN mkdir -p /home/DataProtection-Keys && chmod 777 /home/DataProtection-Keys
+
 # Фінальний образ
 FROM base AS final
 WORKDIR /app
