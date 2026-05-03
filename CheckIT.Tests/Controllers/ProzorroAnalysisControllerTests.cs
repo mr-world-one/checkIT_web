@@ -5,6 +5,8 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using CheckIT.Web.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CheckIT.Tests.Controllers;
 
@@ -12,7 +14,11 @@ public class ProzorroAnalysisControllerTests
 {
     private static ProzorroAnalysisController CreateController(Mock<ProzorroProcessor> processor, Mock<IAppLogger> logger)
     {
-        var controller = new ProzorroAnalysisController(processor.Object, logger.Object);
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+        var historyService = new AnalysisHistoryService(new AppDbContext(options));
+        var controller = new ProzorroAnalysisController(processor.Object, logger.Object, historyService);
         controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
         return controller;
     }

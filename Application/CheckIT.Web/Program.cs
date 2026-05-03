@@ -53,7 +53,7 @@ builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<ExcelProcessingService>();
 builder.Services.AddSingleton<ProzorroService>();
 builder.Services.AddScoped<ProzorroProcessor>();
-
+builder.Services.AddScoped<AnalysisHistoryService>();
 builder.Services.AddScoped<IPromScraperFactory, PromScraperFactory>();
 
 var logDir = Path.Combine(builder.Environment.ContentRootPath, "Logs");

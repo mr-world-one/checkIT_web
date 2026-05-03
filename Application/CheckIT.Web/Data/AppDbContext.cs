@@ -6,6 +6,7 @@ namespace CheckIT.Web.Data;
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
+    public DbSet<AnalysisHistory> AnalysisHistories { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }

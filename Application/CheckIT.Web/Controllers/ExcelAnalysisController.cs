@@ -10,12 +10,14 @@ public class ExcelAnalysisController : Controller
     private readonly ExcelProcessingService _excel;
     private readonly IAppLogger _logger;
     private readonly IPromScraperFactory _scraperFactory;
+    private readonly AnalysisHistoryService _historyService;
 
-    public ExcelAnalysisController(ExcelProcessingService excel, IAppLogger logger, IPromScraperFactory scraperFactory)
+    public ExcelAnalysisController(ExcelProcessingService excel, IAppLogger logger, IPromScraperFactory scraperFactory, AnalysisHistoryService historyService)
     {
         _excel = excel;
         _logger = logger;
         _scraperFactory = scraperFactory;
+        _historyService = historyService;
     }
 
     [HttpGet]
@@ -127,7 +129,10 @@ public class ExcelAnalysisController : Controller
                 item.MarketPrice = null;
             }
         }
+        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        await _historyService.SaveAsync(userId, "Excel", file.FileName, items);
 
         return View("Results", items);
+
     }
 }

@@ -9,11 +9,13 @@ public class ProzorroAnalysisController : Controller
 {
     private readonly ProzorroProcessor _processor;
     private readonly IAppLogger _logger;
+    private readonly AnalysisHistoryService _historyService;
 
-    public ProzorroAnalysisController(ProzorroProcessor processor, IAppLogger logger)
+    public ProzorroAnalysisController(ProzorroProcessor processor, IAppLogger logger, AnalysisHistoryService historyService) // ← додай параметр
     {
         _processor = processor;
         _logger = logger;
+        _historyService = historyService; // ← додай
     }
 
     [HttpGet]
@@ -38,6 +40,11 @@ public class ProzorroAnalysisController : Controller
                 ModelState.AddModelError(string.Empty, "Тендер без цін або позицій");
                 return View("Index");
             }
+
+            // ← додай ці два рядки
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+            await _historyService.SaveAsync(userId, "Prozorro", tenderId.Trim(), results);
+
             return View("Results", results);
         }
         catch (Exception ex)
