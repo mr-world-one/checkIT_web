@@ -54,7 +54,7 @@ public class AccountController : Controller
                 userName: email,
                 password: model.Password!,
                 isPersistent: model.RememberMe,
-                lockoutOnFailure: true);
+                lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
@@ -69,13 +69,6 @@ public class AccountController : Controller
 
                 TempData["Success"] = "Вхід успішний";
                 return RedirectToAction("Index", "Home");
-            }
-
-            if (result.IsLockedOut)
-            {
-                _logger.Warn($"Identity lockout for '{email}'");
-                ModelState.AddModelError(string.Empty, "Забагато спроб. Спробуйте пізніше.");
-                return View(model);
             }
 
             ModelState.AddModelError(string.Empty, "Невірні дані");
