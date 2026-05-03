@@ -24,7 +24,6 @@ builder.Services
         options.Password.RequireLowercase = true;
         options.Password.RequireNonAlphanumeric = true;
 
-        // Disable lockout by failed attempts (we handle blocking via ApplicationUser.IsBlocked).
         options.Lockout.AllowedForNewUsers = false;
         options.Lockout.MaxFailedAccessAttempts = int.MaxValue;
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.Zero;
