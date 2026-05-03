@@ -1,20 +1,20 @@
-@using CheckIT.Web.Models
+п»ї@using CheckIT.Web.Models
 @model List<AnalysisHistory>
 @{
-    ViewData["Title"] = "Історія аналізів";
+    ViewData["Title"] = "Р†СЃС‚РѕСЂС–СЏ Р°РЅР°Р»С–Р·С–РІ";
 }
 
 <section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
     <div>
-        <h1 class="h4 mb-1">Історія аналізів</h1>
-        <div class="text-muted-2">Всього аналізів: <span class="fw-semibold">@Model.Count</span></div>
+        <h1 class="h4 mb-1">Р†СЃС‚РѕСЂС–СЏ Р°РЅР°Р»С–Р·С–РІ</h1>
+        <div class="text-muted-2">Р’СЃСЊРѕРіРѕ Р°РЅР°Р»С–Р·С–РІ: <span class="fw-semibold">@Model.Count</span></div>
     </div>
-    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">На головну</a>
+    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">РќР° РіРѕР»РѕРІРЅСѓ</a>
 </section>
 
 @if (Model.Count == 0)
 {
-    <div class="card-pro p-4 reveal text-muted-2">Ви ще не робили жодного аналізу.</div>
+    <div class="card-pro p-4 reveal text-muted-2">Р’Рё С‰Рµ РЅРµ СЂРѕР±РёР»Рё Р¶РѕРґРЅРѕРіРѕ Р°РЅР°Р»С–Р·Сѓ.</div>
 }
 else
 {
@@ -22,11 +22,11 @@ else
         <table class="table align-middle">
             <thead>
             <tr>
-                <th>Тип</th>
-                <th>Джерело</th>
-                <th>Позицій</th>
-                <th>Дата</th>
-                <th class="text-end">Деталі</th>
+                <th>РўРёРї</th>
+                <th>Р”Р¶РµСЂРµР»Рѕ</th>
+                <th>РџРѕР·РёС†С–Р№</th>
+                <th>Р”Р°С‚Р°</th>
+                <th class="text-end">Р”РµС‚Р°Р»С–</th>
             </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@ else
                     <td>@item.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
                     <td class="text-end">
                         <a class="btn btn-sm btn-outline-pro" asp-controller="History" asp-action="Details" asp-route-id="@item.Id">
-                            Переглянути
+                            РџРµСЂРµРіР»СЏРЅСѓС‚Рё
                         </a>
                     </td>
                 </tr>
