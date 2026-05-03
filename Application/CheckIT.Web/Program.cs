@@ -15,10 +15,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 // Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
-// /home is the persisted volume in App Service for Containers.
+// Use a writable local path for dev/test/CI; App Service uses /home which is persisted.
+var dpKeysPath = builder.Environment.IsProduction()
+    ? "/home/DataProtection-Keys"
+    : Path.Combine(builder.Environment.ContentRootPath, ".dpkeys");
+
 builder.Services
     .AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo("/home/DataProtection-Keys"))
+    .PersistKeysToFileSystem(new DirectoryInfo(dpKeysPath))
     .SetApplicationName("CheckIT");
 
 builder.Services.AddHealthChecks();
