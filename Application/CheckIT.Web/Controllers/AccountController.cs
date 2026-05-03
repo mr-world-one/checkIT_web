@@ -60,11 +60,10 @@ public class AccountController : Controller
             {
                 if (user.IsBlocked)
                 {
-                    // Do not keep blocked users signed-in.
                     await _signInManager.SignOutAsync();
 
                     TempData["BlockedUserEmail"] = email;
-                    TempData["Blocked"] = "Акаунт заблоковано адміністратором. Ви можете подати скаргу/запит на розблокування.";
+                    TempData["Blocked"] = "Вас заблоковано. Подайте запит на розблокування, якщо виникло непорозуміння.";
                     return RedirectToAction(nameof(Login));
                 }
 

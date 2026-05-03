@@ -24,9 +24,10 @@ builder.Services
         options.Password.RequireLowercase = true;
         options.Password.RequireNonAlphanumeric = true;
 
-        options.Lockout.AllowedForNewUsers = true;
-        options.Lockout.MaxFailedAccessAttempts = 3;
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        // Disable lockout by failed attempts (we handle blocking via ApplicationUser.IsBlocked).
+        options.Lockout.AllowedForNewUsers = false;
+        options.Lockout.MaxFailedAccessAttempts = int.MaxValue;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.Zero;
 
         options.SignIn.RequireConfirmedEmail = false;
     })
