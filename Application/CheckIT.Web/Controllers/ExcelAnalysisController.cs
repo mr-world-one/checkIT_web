@@ -133,6 +133,5 @@ public class ExcelAnalysisController : Controller
         await _historyService.SaveAsync(userId, "Excel", file.FileName, items);
 
         return View("Results", items);
-
     }
 }

@@ -18,8 +18,8 @@ public class AnalysisHistoryServiceTests
 
 	private static List<ComparisonItem> SampleItems() =>
 	[
-		new ComparisonItem { Name = "Ноутбук Dell", Price = 25000m, MarketPrice = 22000m },
-		new ComparisonItem { Name = "Мишка Logitech", Price = 500m, MarketPrice = 450m }
+		new ComparisonItem { Name = "РќРѕСѓС‚Р±СѓРє Dell", Price = 25000m, MarketPrice = 22000m },
+		new ComparisonItem { Name = "РњРёС€РєР° Logitech", Price = 500m, MarketPrice = 450m }
 	];
 
 	[Fact]
@@ -50,7 +50,7 @@ public class AnalysisHistoryServiceTests
 		entry.ItemsJson.Should().NotBeNullOrEmpty();
 		var deserialized = service.DeserializeItems(entry.ItemsJson);
 		deserialized.Should().HaveCount(2);
-		deserialized[0].Name.Should().Be("Ноутбук Dell");
+		deserialized[0].Name.Should().Be("РќРѕСѓС‚Р±СѓРє Dell");
 	}
 
 	[Fact]
@@ -106,7 +106,7 @@ public class AnalysisHistoryServiceTests
 		var result = service.DeserializeItems(json);
 
 		result.Should().HaveCount(2);
-		result[0].Name.Should().Be("Ноутбук Dell");
+		result[0].Name.Should().Be("РќРѕСѓС‚Р±СѓРє Dell");
 		result[0].Price.Should().Be(25000m);
 		result[0].MarketPrice.Should().Be(22000m);
 	}

@@ -14,9 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
-// Changed to temp dir to bypass permission issues. Note: keys won't persist after container restart.
-var dpKeysPath = Path.Combine(Path.GetTempPath(), "DataProtection-Keys");
+// Persist DataProtection keys in app storage so cookies/antiforgery survive restarts.
+var dpKeysPath = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "DataProtection-Keys");
 Directory.CreateDirectory(dpKeysPath);
 
 builder.Services
