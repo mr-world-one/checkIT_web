@@ -1,4 +1,4 @@
-using CheckIT.Web.Data;
+﻿using CheckIT.Web.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -22,14 +22,12 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            // Replace AppDbContext with in-memory for integration tests.
             services.RemoveAll(typeof(DbContextOptions<AppDbContext>));
             services.RemoveAll(typeof(AppDbContext));
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase("CheckIT_TestDb_" + Guid.NewGuid()));
 
-            // Test authentication scheme so we can access [Authorize] endpoints.
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = TestAuthScheme;
@@ -51,7 +49,6 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            // By default authenticate as Admin.
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, "test"),

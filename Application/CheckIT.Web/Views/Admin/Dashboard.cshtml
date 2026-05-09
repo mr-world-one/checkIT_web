@@ -1,31 +1,31 @@
-@{
-    ViewData["Title"] = "Адмін";
+п»ї@{
+    ViewData["Title"] = "РђРґРјС–РЅ";
 }
 
 <section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
     <div>
-        <h1 class="h4 mb-1">Адмін?панель</h1>
-        <div class="text-muted-2">Статистика та керування доступом</div>
+        <h1 class="h4 mb-1">РђРґРјС–РЅ?РїР°РЅРµР»СЊ</h1>
+        <div class="text-muted-2">РЎС‚Р°С‚РёСЃС‚РёРєР° С‚Р° РєРµСЂСѓРІР°РЅРЅСЏ РґРѕСЃС‚СѓРїРѕРј</div>
     </div>
-    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">На головну</a>
+    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">РќР° РіРѕР»РѕРІРЅСѓ</a>
 </section>
 
 <div class="row g-3">
     <div class="col-md-4">
         <div class="card-pro p-4 reveal">
-            <div class="text-muted-2">Всього користувачів</div>
+            <div class="text-muted-2">Р’СЃСЊРѕРіРѕ РєРѕСЂРёСЃС‚СѓРІР°С‡С–РІ</div>
             <div class="fs-3 fw-bold">@ViewBag.TotalUsers</div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card-pro p-4 reveal">
-            <div class="text-muted-2">Заблоковано</div>
+            <div class="text-muted-2">Р—Р°Р±Р»РѕРєРѕРІР°РЅРѕ</div>
             <div class="fs-3 fw-bold">@ViewBag.BlockedUsers</div>
         </div>
     </div>
 </div>
 
 <div class="mt-3 d-flex gap-2 flex-wrap">
-    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Users" data-transition="right">Користувачі</a>
-    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Logs" data-transition="right">Логи</a>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Users" data-transition="right">РљРѕСЂРёСЃС‚СѓРІР°С‡С–</a>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Logs" data-transition="right">Р›РѕРіРё</a>
 </div>

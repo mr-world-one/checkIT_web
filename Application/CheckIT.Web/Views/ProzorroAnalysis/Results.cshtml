@@ -1,24 +1,24 @@
-@model List<CheckIT.Web.Models.ComparisonItem>
+п»ї@model List<CheckIT.Web.Models.ComparisonItem>
 @{
-    ViewData["Title"] = "Результати Prozorro";
+    ViewData["Title"] = "Р РµР·СѓР»СЊС‚Р°С‚Рё Prozorro";
 }
 
 <section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
     <div>
-        <h1 class="h4 mb-1">Результати аналізу</h1>
-        <div class="text-muted-2">Позицій у звіті: <span class="fw-semibold">@Model.Count</span></div>
+        <h1 class="h4 mb-1">Р РµР·СѓР»СЊС‚Р°С‚Рё Р°РЅР°Р»С–Р·Сѓ</h1>
+        <div class="text-muted-2">РџРѕР·РёС†С–Р№ Сѓ Р·РІС–С‚С–: <span class="fw-semibold">@Model.Count</span></div>
     </div>
-    <a class="btn btn-outline-pro" asp-controller="ProzorroAnalysis" asp-action="Index" data-transition="left">Назад</a>
+    <a class="btn btn-outline-pro" asp-controller="ProzorroAnalysis" asp-action="Index" data-transition="left">РќР°Р·Р°Рґ</a>
 </section>
 
 <div class="table-pro reveal">
     <table class="table align-middle">
         <thead>
         <tr>
-            <th style="min-width: 320px;">Назва товару</th>
-            <th class="text-end" style="min-width: 220px;">Ціна з Prozorro, ?</th>
-            <th class="text-end" style="min-width: 180px;">Ціна з Prom.ua, ?</th>
-            <th class="text-end" style="min-width: 210px;">Різниця</th>
+            <th style="min-width: 320px;">РќР°Р·РІР° С‚РѕРІР°СЂСѓ</th>
+            <th class="text-end" style="min-width: 220px;">Р¦С–РЅР° Р· Prozorro, ?</th>
+            <th class="text-end" style="min-width: 180px;">Р¦С–РЅР° Р· Prom.ua, ?</th>
+            <th class="text-end" style="min-width: 210px;">Р С–Р·РЅРёС†СЏ</th>
         </tr>
         </thead>
         <tbody>
@@ -45,13 +45,13 @@
                                 @diff.Value.ToString("+#,##0.00;-#,##0.00;0")
                             </span>
                             <span class="badge-pill @(isUp ? "up" : isDown ? "down" : "")">
-                                @(isUp ? "Дорожче" : isDown ? "Дешевше" : "Без змін")
+                                @(isUp ? "Р”РѕСЂРѕР¶С‡Рµ" : isDown ? "Р”РµС€РµРІС€Рµ" : "Р‘РµР· Р·РјС–РЅ")
                             </span>
                         </div>
                     }
                     else
                     {
-                        <span class="text-muted-2">—</span>
+                        <span class="text-muted-2">вЂ”</span>
                     }
                 </td>
             </tr>

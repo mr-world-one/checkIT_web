@@ -1,7 +1,8 @@
-using CheckIT.Web.Models;
+п»їusing CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace CheckIT.Web.Controllers;
 
@@ -9,10 +10,12 @@ namespace CheckIT.Web.Controllers;
 public class AdminController : Controller
 {
     private readonly AdminService _admin;
+    private readonly IHostEnvironment _env;
 
-    public AdminController(AdminService admin)
+    public AdminController(AdminService admin, IHostEnvironment env)
     {
         _admin = admin;
+        _env = env;
     }
 
     [HttpGet]
@@ -36,7 +39,7 @@ public class AdminController : Controller
     public async Task<IActionResult> SetBlocked(string id, bool blocked)
     {
         await _admin.SetBlockedAsync(id, blocked);
-        TempData["Success"] = blocked ? "Користувача заблоковано" : "Користувача розблоковано";
+        TempData["Success"] = blocked ? "РљРѕСЂРёСЃС‚СѓРІР°С‡Р° Р·Р°Р±Р»РѕРєРѕРІР°РЅРѕ" : "РљРѕСЂРёСЃС‚СѓРІР°С‡Р° СЂРѕР·Р±Р»РѕРєРѕРІР°РЅРѕ";
         return RedirectToAction(nameof(Users));
     }
 
@@ -45,17 +48,17 @@ public class AdminController : Controller
     public async Task<IActionResult> Delete(string id)
     {
         await _admin.DeleteUserAsync(id);
-        TempData["Success"] = "Користувача видалено";
+        TempData["Success"] = "РљРѕСЂРёСЃС‚СѓРІР°С‡Р° РІРёРґР°Р»РµРЅРѕ";
         return RedirectToAction(nameof(Users));
     }
 
     [HttpGet]
     public IActionResult Logs(DateTime? from = null, DateTime? to = null, string? level = null)
     {
-        var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "app.log");
+        var logPath = Path.Combine(_env.ContentRootPath, "Logs", "app.log");
         if (!System.IO.File.Exists(logPath))
         {
-            ViewBag.Message = "Логи відсутні";
+            ViewBag.Message = "Р›РѕРіРё РІС–РґСЃСѓС‚РЅС–";
             return View(Array.Empty<string>());
         }
 
@@ -66,11 +69,10 @@ public class AdminController : Controller
         }
         catch
         {
-            ViewBag.Message = "Помилка доступу до логів";
+            ViewBag.Message = "РќРµРјРѕР¶Р»РёРІРѕ РїСЂРѕС‡РёС‚Р°С‚Рё Р»РѕРі";
             return View(Array.Empty<string>());
         }
 
-        // Format: yyyy-MM-dd HH:mm:ss.fff zzz<TAB>LEVEL<TAB>message
         if (!string.IsNullOrWhiteSpace(level))
         {
             level = level.Trim().ToUpperInvariant();
@@ -83,7 +85,6 @@ public class AdminController : Controller
         if (to.HasValue)
             lines = lines.Where(l => TryGetTimestamp(l, out var ts) && ts <= to.Value.AddDays(1));
 
-        // show last 500 lines to keep page fast
         var result = lines.TakeLast(500).ToArray();
 
         return View(result);
@@ -94,7 +95,6 @@ public class AdminController : Controller
         ts = default;
         if (line.Length < 10) return false;
 
-        // First 23 chars are 'yyyy-MM-dd HH:mm:ss.fff'
         var prefix = line.Length >= 23 ? line[..23] : line;
         return DateTime.TryParse(prefix, out ts);
     }

@@ -22,6 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CheckIT.Web\CheckIT.Web.csproj" />
+    <ProjectReference Include="..\Application\CheckIT.Web\CheckIT.Web.csproj" />
   </ItemGroup>
 </Project>

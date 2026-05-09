@@ -1,4 +1,4 @@
-namespace CheckIT.Web.Models;
+﻿namespace CheckIT.Web.Models;
 
 public class ComparisonItem
 {

@@ -23,4 +23,8 @@
     <PackageReference Include="Selenium.Support" Version="4.27.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\History\" />
+  </ItemGroup>
+
 </Project>
