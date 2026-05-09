@@ -40,7 +40,11 @@ public class AdminControllerTests
         var env = new Mock<IHostEnvironment>();
         env.SetupGet(e => e.ContentRootPath).Returns(contentRoot);
 
-        var controller = new AdminController(admin, env.Object);
+        var db = new Mock<CheckIT.Web.Data.AppDbContext>(new Microsoft.EntityFrameworkCore.DbContextOptions<CheckIT.Web.Data.AppDbContext>());
+        var userManager = CreateUserManagerWithUsers([]);
+        var unblock = new UnblockRequestService(db.Object, userManager.Object);
+
+        var controller = new AdminController(admin, unblock, env.Object);
         controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
         controller.TempData = new CheckIT.Tests.TestDoubles.FakeTempDataDictionary();
         return controller;

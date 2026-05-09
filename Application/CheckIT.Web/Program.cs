@@ -1,6 +1,8 @@
 using CheckIT.Web.Data;
+using CheckIT.Web.Infrastructure;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
+// Changed to temp dir to bypass permission issues. Note: keys won't persist after container restart.
+var dpKeysPath = Path.Combine(Path.GetTempPath(), "DataProtection-Keys");
+Directory.CreateDirectory(dpKeysPath);
+
+builder.Services
+    .AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(dpKeysPath))
+    .SetApplicationName("CheckIT");
+
+builder.Services.AddHealthChecks();
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -23,9 +37,9 @@ builder.Services
         options.Password.RequireLowercase = true;
         options.Password.RequireNonAlphanumeric = true;
 
-        options.Lockout.AllowedForNewUsers = true;
-        options.Lockout.MaxFailedAccessAttempts = 3;
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.AllowedForNewUsers = false;
+        options.Lockout.MaxFailedAccessAttempts = int.MaxValue;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.Zero;
 
         options.SignIn.RequireConfirmedEmail = false;
     })
@@ -42,15 +56,19 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = ".CheckIT.Auth";
 });
 
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 });
 
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<UnblockRequestService>();
 builder.Services.AddScoped<ExcelProcessingService>();
 builder.Services.AddSingleton<ProzorroService>();
 builder.Services.AddScoped<ProzorroProcessor>();
+builder.Services.AddScoped<AnalysisHistoryService>();
+builder.Services.AddScoped<IPromScraperFactory, PromScraperFactory>();
 
 var logDir = Path.Combine(builder.Environment.ContentRootPath, "Logs");
 builder.Services.AddSingleton<IAppLogger>(_ => new FileAppLogger(Path.Combine(logDir, "app.log")));
@@ -71,46 +89,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHealthChecks("/health");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await db.Database.MigrateAsync();
-
-    var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-    foreach (var role in new[] { "Admin", "User" })
-    {
-        if (!await roleMgr.RoleExistsAsync(role))
-            await roleMgr.CreateAsync(new IdentityRole(role));
-    }
-
-    var adminEmail = "admin@checkit.ua";
-    var admin = await userMgr.FindByEmailAsync(adminEmail);
-    if (admin == null)
-    {
-        admin = new ApplicationUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            FullName = "Admin",
-            EmailConfirmed = true,
-            IsBlocked = false
-        };
-
-        var created = await userMgr.CreateAsync(admin, "Admin123!");
-        if (created.Succeeded)
-            await userMgr.AddToRoleAsync(admin, "Admin");
-    }
-    else
-    {
-        if (!await userMgr.IsInRoleAsync(admin, "Admin"))
-            await userMgr.AddToRoleAsync(admin, "Admin");
-    }
+    using var scope = app.Services.CreateScope();
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
 }
 
 app.Run();
+
+public partial class Program { }

@@ -1,0 +1,63 @@
+﻿@using CheckIT.Web.Models
+@model List<ComparisonItem>
+@{
+    ViewData["Title"] = "Деталі аналізу";
+    var entry = ViewBag.Entry as AnalysisHistory;
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Деталі аналізу</h1>
+        <div class="text-muted-2">
+            @entry?.Type — @entry?.Source —
+            @entry?.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+        </div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="History" asp-action="Index" data-transition="left">Назад</a>
+</section>
+
+<div class="table-pro reveal">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th style="min-width: 320px;">Назва товару</th>
+            <th class="text-end">Ціна з тендеру, ₴</th>
+            <th class="text-end">Ціна з Prom.ua, ₴</th>
+            <th class="text-end">Різниця</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            decimal? diff = (item.Price.HasValue && item.MarketPrice.HasValue)
+                ? item.Price.Value - item.MarketPrice.Value
+                : null;
+            var isUp = diff.HasValue && diff.Value > 0;
+            var isDown = diff.HasValue && diff.Value < 0;
+
+            <tr>
+                <td><div class="fw-semibold">@item.Name</div></td>
+                <td class="text-end">@item.Price?.ToString("N2")</td>
+                <td class="text-end">@item.MarketPrice?.ToString("N2")</td>
+                <td class="text-end">
+                    @if (diff.HasValue)
+                    {
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+                            <span class="@(isUp ? "diff-up" : isDown ? "diff-down" : "")">
+                                @diff.Value.ToString("+#,##0.00;-#,##0.00;0")
+                            </span>
+                            <span class="badge-pill @(isUp ? "up" : isDown ? "down" : "")">
+                                @(isUp ? "Дорожче" : isDown ? "Дешевше" : "Без змін")
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="text-muted-2">—</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using CheckIT.Web.Models;
 using OpenQA.Selenium;
@@ -172,6 +172,8 @@ public sealed class PromUaSeleniumScraper : IDisposable
         options.AddArgument("--disable-blink-features=AutomationControlled");
         options.AddArgument("--disable-gpu");
         options.AddArgument("--window-size=1366,768");
+        options.AddArgument("--no-sandbox");
+        options.AddArgument("--disable-dev-shm-usage");
 
         if (_headless)
             options.AddArgument("--headless=new");

@@ -1,4 +1,4 @@
-using CheckIT.Web.Services;
+﻿using CheckIT.Web.Services;
 using FluentAssertions;
 
 namespace CheckIT.Tests.Services;

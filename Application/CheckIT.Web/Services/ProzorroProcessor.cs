@@ -1,4 +1,4 @@
-using CheckIT.Web.Models;
+﻿using CheckIT.Web.Models;
 
 namespace CheckIT.Web.Services;
 
@@ -6,21 +6,23 @@ public class ProzorroProcessor
 {
     private readonly ProzorroService _prozorroService;
     private readonly IAppLogger _logger;
+    private readonly IPromScraperFactory _scraperFactory;
 
-    public ProzorroProcessor(ProzorroService prozorroService, IAppLogger logger)
+    public ProzorroProcessor(ProzorroService prozorroService, IAppLogger logger, IPromScraperFactory scraperFactory)
     {
         _prozorroService = prozorroService;
         _logger = logger;
+        _scraperFactory = scraperFactory;
     }
 
-    public async Task<List<ComparisonItem>> ProcessTenderAsync(string tenderId, CancellationToken ct = default)
+    public virtual async Task<List<ComparisonItem>> ProcessTenderAsync(string tenderId, CancellationToken ct = default)
     {
         var items = await _prozorroService.GetContractItemsAsync(tenderId, ct);
 
         var results = new List<ComparisonItem>();
         if (items == null || items.Count == 0) return results;
 
-        using var promScraper = new PromUaSeleniumScraper(_logger, headless: true);
+        using var promScraper = _scraperFactory.Create(headless: true);
 
         foreach (var it in items)
         {

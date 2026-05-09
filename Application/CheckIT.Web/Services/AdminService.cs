@@ -1,4 +1,4 @@
-using CheckIT.Web.Models;
+п»їusing CheckIT.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +13,12 @@ public class AdminService
         _userManager = userManager;
     }
 
-    public Task<List<ApplicationUser>> GetAllUsersAsync()
+    public virtual Task<List<ApplicationUser>> GetAllUsersAsync()
         => _userManager.Users.OrderBy(u => u.CreatedAtUtc).ToListAsync();
 
-    public async Task SetBlockedAsync(string userId, bool blocked)
+    public virtual async Task SetBlockedAsync(string userId, bool blocked)
     {
-        var user = await _userManager.FindByIdAsync(userId) ?? throw new InvalidOperationException("Користувача не знайдено");
+        var user = await _userManager.FindByIdAsync(userId) ?? throw new InvalidOperationException("РљРѕСЂРёСЃС‚СѓРІР°С‡Р° РЅРµ Р·РЅР°Р№РґРµРЅРѕ");
         user.IsBlocked = blocked;
         await _userManager.UpdateAsync(user);
 
@@ -35,7 +35,7 @@ public class AdminService
         }
     }
 
-    public async Task DeleteUserAsync(string userId)
+    public virtual async Task DeleteUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null) return;

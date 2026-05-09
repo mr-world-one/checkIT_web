@@ -1,39 +1,39 @@
-@model string[]
+п»ї@model string[]
 @{
-    ViewData["Title"] = "Логи";
+    ViewData["Title"] = "Р›РѕРіРё";
     var message = ViewBag.Message as string;
 }
 
 <section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
     <div>
-        <h1 class="h4 mb-1">Логи</h1>
-        <div class="text-muted-2">Останні записи (до 500 рядків)</div>
+        <h1 class="h4 mb-1">Р›РѕРіРё</h1>
+        <div class="text-muted-2">РћСЃС‚Р°РЅРЅС– Р·Р°РїРёСЃРё (РґРѕ 500 СЂСЏРґРєС–РІ)</div>
     </div>
-    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Dashboard" data-transition="left">Назад</a>
+    <a class="btn btn-outline-pro" asp-controller="Admin" asp-action="Dashboard" data-transition="left">РќР°Р·Р°Рґ</a>
 </section>
 
 <section class="card-pro p-4 reveal mb-3">
     <form method="get">
         <div class="row g-2 align-items-end">
             <div class="col-md-3">
-                <label class="form-label">Від (дата)</label>
+                <label class="form-label">Р’С–Рґ (РґР°С‚Р°)</label>
                 <input class="form-control" type="date" name="from" />
             </div>
             <div class="col-md-3">
-                <label class="form-label">До (дата)</label>
+                <label class="form-label">Р”Рѕ (РґР°С‚Р°)</label>
                 <input class="form-control" type="date" name="to" />
             </div>
             <div class="col-md-3">
-                <label class="form-label">Рівень</label>
+                <label class="form-label">Р С–РІРµРЅСЊ</label>
                 <select class="form-select" name="level">
-                    <option value="">(всі)</option>
+                    <option value="">(РІСЃС–)</option>
                     <option value="INFO">INFO</option>
                     <option value="WARN">WARN</option>
                     <option value="ERROR">ERROR</option>
                 </select>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-outline-pro w-100" type="submit">Фільтрувати</button>
+                <button class="btn btn-outline-pro w-100" type="submit">Р¤С–Р»СЊС‚СЂСѓРІР°С‚Рё</button>
             </div>
         </div>
     </form>
@@ -46,7 +46,7 @@
 
 @if (Model.Length == 0)
 {
-    <div class="text-muted-2">Логи відсутні</div>
+    <div class="text-muted-2">Р›РѕРіРё РІС–РґСЃСѓС‚РЅС–</div>
 }
 else
 {

@@ -1,11 +1,11 @@
-using CheckIT.Web.Models;
+﻿using CheckIT.Web.Models;
 using ClosedXML.Excel;
 
 namespace CheckIT.Web.Services;
 
 public class ExcelProcessingService
 {
-    public List<ComparisonItem> ParseExcel(Stream fileStream)
+    public virtual List<ComparisonItem> ParseExcel(Stream fileStream)
     {
         var items = new List<ComparisonItem>();
 

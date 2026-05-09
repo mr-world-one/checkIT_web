@@ -131,10 +131,11 @@ public class AccountControllerTests
 
         var controller = CreateController(userManager, signInManager, logger);
 
-        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!" });
+        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!", RememberMe = false });
 
-        result.Should().BeOfType<ViewResult>();
-        controller.ModelState.ErrorCount.Should().BeGreaterThan(0);
+        result.Should().BeOfType<RedirectToActionResult>().Which.ActionName.Should().Be(nameof(AccountController.Login));
+        controller.TempData.Should().ContainKey("Blocked");
+
         signInManager.Verify(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Never);
     }
 
@@ -146,13 +147,13 @@ public class AccountControllerTests
             .ReturnsAsync(new ApplicationUser { UserName = "u", Email = "u@e", FullName = "Name", IsBlocked = false });
 
         var signInManager = CreateSignInManager(userManager.Object);
-        signInManager.Setup(s => s.PasswordSignInAsync("u", It.IsAny<string>(), false, true))
+        signInManager.Setup(s => s.PasswordSignInAsync("u@e", It.IsAny<string>(), false, false))
             .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
         var logger = new Mock<IAppLogger>();
         var controller = CreateController(userManager, signInManager, logger);
 
-        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!" });
+        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!", RememberMe = false });
 
         result.Should().BeOfType<RedirectToActionResult>().Which.ActionName.Should().Be("Index");
         controller.TempData.Should().ContainKey("Success");
@@ -261,27 +262,6 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public async Task Login_Post_WhenLockedOut_ReturnsViewAndAddsModelError_Negative()
-    {
-        var userManager = CreateUserManager();
-        userManager.Setup(m => m.FindByEmailAsync(It.IsAny<string>()))
-            .ReturnsAsync(new ApplicationUser { UserName = "u", Email = "u@e", IsBlocked = false });
-
-        var signInManager = CreateSignInManager(userManager.Object);
-        signInManager.Setup(s => s.PasswordSignInAsync("u", It.IsAny<string>(), false, true))
-            .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.LockedOut);
-
-        var logger = new Mock<IAppLogger>();
-        var controller = CreateController(userManager, signInManager, logger);
-
-        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!" });
-
-        result.Should().BeOfType<ViewResult>();
-        controller.ModelState.ErrorCount.Should().BeGreaterThan(0);
-        logger.Verify(l => l.Warn(It.IsAny<string>()), Times.Once);
-    }
-
-    [Fact]
     public async Task Register_Post_WhenModelInvalid_ReturnsViewSameModel_Negative()
     {
         var userManager = CreateUserManager();
@@ -333,6 +313,46 @@ public class AccountControllerTests
         result.Should().BeOfType<ViewResult>();
         controller.ModelState.ContainsKey(nameof(RegisterViewModel.Password)).Should().BeTrue();
         controller.ModelState[nameof(RegisterViewModel.Password)]!.Errors
-            .Should().Contain(e => e.ErrorMessage.Contains("Ï≥Ì≥ÏÛÏ 8", StringComparison.OrdinalIgnoreCase));
+            .Should().Contain(e => e.ErrorMessage.Contains("–º—ñ–Ω—ñ–º—É–º 8", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task Login_Post_TrimsEmail_BeforeLookup()
+    {
+        var userManager = CreateUserManager();
+        var signInManager = CreateSignInManager(userManager.Object);
+        var logger = new Mock<IAppLogger>();
+
+        userManager
+            .Setup(m => m.FindByEmailAsync("user@x.com"))
+            .ReturnsAsync((ApplicationUser?)null);
+
+        var controller = CreateController(userManager, signInManager, logger);
+
+        await controller.Login(new LoginViewModel { Email = "  user@x.com  ", Password = "Pass123!" });
+
+        userManager.Verify(m => m.FindByEmailAsync("user@x.com"), Times.Once);
+    }
+
+    [Fact]
+    public async Task Login_Post_WhenSignInThrows_LogsErrorAndReturnsViewWithGenericError_Negative()
+    {
+        var userManager = CreateUserManager();
+        userManager.Setup(m => m.FindByEmailAsync(It.IsAny<string>()))
+            .ReturnsAsync(new ApplicationUser { UserName = "u", Email = "u@e", IsBlocked = false });
+
+        var signInManager = CreateSignInManager(userManager.Object);
+        signInManager
+            .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+            .ThrowsAsync(new Exception("boom"));
+
+        var logger = new Mock<IAppLogger>();
+        var controller = CreateController(userManager, signInManager, logger);
+
+        var result = await controller.Login(new LoginViewModel { Email = "u@e", Password = "Pass123!" });
+
+        result.Should().BeOfType<ViewResult>();
+        logger.Verify(l => l.Error(It.IsAny<string>(), It.IsAny<Exception>()), Times.Once);
+        controller.ModelState.ErrorCount.Should().BeGreaterThan(0);
     }
 }
