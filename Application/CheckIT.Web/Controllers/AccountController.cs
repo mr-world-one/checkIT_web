@@ -1,4 +1,4 @@
-﻿using CheckIT.Web.Models;
+using CheckIT.Web.Models;
 using CheckIT.Web.Services;
 using CheckIT.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -51,27 +51,21 @@ public class AccountController : Controller
 
             if (user.IsBlocked)
             {
-                ModelState.AddModelError(string.Empty, "Акаунт заблоковано адміністратором");
-                return View(model);
+                TempData["BlockedUserEmail"] = email;
+                TempData["Blocked"] = "Вас заблоковано. Подайте запит на розблокування, якщо виникло непорозуміння.";
+                return RedirectToAction(nameof(Login));
             }
 
             var result = await _signInManager.PasswordSignInAsync(
-                userName: user.UserName!,
+                userName: email,
                 password: model.Password!,
-                isPersistent: false,
-                lockoutOnFailure: true);
+                isPersistent: model.RememberMe,
+                lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                TempData["Success"] = $"Вхід виконано. Вітаємо, {user.FullName ?? user.Email}!";
+                TempData["Success"] = "Вхід успішний";
                 return RedirectToAction("Index", "Home");
-            }
-
-            if (result.IsLockedOut)
-            {
-                _logger.Warn($"Identity lockout for '{email}'");
-                ModelState.AddModelError(string.Empty, "Забагато спроб. Спробуйте пізніше.");
-                return View(model);
             }
 
             ModelState.AddModelError(string.Empty, "Невірні дані");

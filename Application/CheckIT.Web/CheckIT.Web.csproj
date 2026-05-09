@@ -22,9 +22,12 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.27.0" />
     <PackageReference Include="Selenium.Support" Version="4.27.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Views\History\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Remove="CheckIT.Tests\**\*.cs" />
+    <Content Remove="CheckIT.Tests\**\*.cs" />
+    <None Remove="CheckIT.Tests\**\*.cs" />
+  </ItemGroup>
 </Project>

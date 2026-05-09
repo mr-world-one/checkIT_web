@@ -1,42 +1,62 @@
-name: Artym CI/CD Pipeline
+name: CI/CD Pipeline
 on:
   push:
-    branches: [ "artym" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: "9.0.x"
+  WEB_CSPROJ: "Application/CheckIT.Web/CheckIT.Web.csproj"
+  TEST_CSPROJ: "CheckIT.Tests/CheckIT.Tests.csproj"
+  IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME }}/checkit-web"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
-    
-    - name: Restore dependencies
-      run: dotnet restore Application/CheckIT.Web/CheckIT.Web.csproj
-    
-    - name: Build
-      run: dotnet build Application/CheckIT.Web/CheckIT.Web.csproj --no-restore --configuration Release
-    
-    - name: Run tests
-      run: dotnet test CheckIT.Tests/CheckIT.Tests.csproj --verbosity normal
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.WEB_CSPROJ }} /p:NuGetAudit=false
+
+      - name: Build
+        run: dotnet build ${{ env.WEB_CSPROJ }} --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test ${{ env.TEST_CSPROJ }} --configuration Release --verbosity normal /p:NuGetAudit=false
+
+      - name: Check migrations folder exists
+        run: |
+          test -d "Application/CheckIT.Web/Data/Migrations"
+          ls -la "Application/CheckIT.Web/Data/Migrations"
 
   docker:
     needs: test
     runs-on: ubuntu-latest
-    if: success()
+    if: github.event_name == 'push' && success()
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME_ARTYM }}
-        password: ${{ secrets.DOCKERHUB_TOKEN_ARTYM }}
-    
-    - name: Build and Push Docker image
-      run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME_ARTYM }}/artym_checkit:latest .
-        docker push ${{ secrets.DOCKERHUB_USERNAME_ARTYM }}/artym_checkit:latest
+      - uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.MY_DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image (latest)
+        run: |
+          docker build -t "${{ env.IMAGE_NAME }}:latest" .
+
+      - name: Push to Docker Hub (latest)
+        run: |
+          docker push "${{ env.IMAGE_NAME }}:latest"

@@ -2,6 +2,7 @@ using CheckIT.Web.Data;
 using CheckIT.Web.Infrastructure;
 using CheckIT.Web.Models;
 using CheckIT.Web.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// Azure App Service: persist DataProtection keys so cookies/antiforgery survive restarts.
+// Changed to temp dir to bypass permission issues. Note: keys won't persist after container restart.
+var dpKeysPath = Path.Combine(Path.GetTempPath(), "DataProtection-Keys");
+Directory.CreateDirectory(dpKeysPath);
+
+builder.Services
+    .AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(dpKeysPath))
+    .SetApplicationName("CheckIT");
+
+builder.Services.AddHealthChecks();
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -24,9 +37,9 @@ builder.Services
         options.Password.RequireLowercase = true;
         options.Password.RequireNonAlphanumeric = true;
 
-        options.Lockout.AllowedForNewUsers = true;
-        options.Lockout.MaxFailedAccessAttempts = 3;
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.AllowedForNewUsers = false;
+        options.Lockout.MaxFailedAccessAttempts = int.MaxValue;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.Zero;
 
         options.SignIn.RequireConfirmedEmail = false;
     })
@@ -50,6 +63,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<UnblockRequestService>();
 builder.Services.AddScoped<ExcelProcessingService>();
 builder.Services.AddSingleton<ProzorroService>();
 builder.Services.AddScoped<ProzorroProcessor>();
@@ -74,6 +88,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health");
 
 app.MapControllerRoute(
     name: "default",
