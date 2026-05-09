@@ -149,7 +149,8 @@
                     {
                         <li class="nav-item"><a class="nav-link" asp-controller="ExcelAnalysis" asp-action="Index" data-transition="right">Excel тендер</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="ProzorroAnalysis" asp-action="Index" data-transition="right">Prozorro</a></li>
-
+                        <li class="nav-item"><a class="nav-link" asp-controller="Profile" asp-action="Index" data-transition="right">Профіль</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="History" asp-action="Index" data-transition="right">Історія</a></li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item"><a class="nav-link" style="color:var(--check-red)" asp-controller="Admin" asp-action="Users" data-transition="right">Адмін</a></li>

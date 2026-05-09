@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 
@@ -32,10 +32,8 @@ public class AdminLogsIntegrationTests : IClassFixture<CustomWebApplicationFacto
 
         using var client = _factory.CreateClient(new() { AllowAutoRedirect = false });
 
-        // Act: from=2025-01-02 to=2025-01-02 includes only that day; level=warn keeps WARN lines.
         var resp = await client.GetAsync("/Admin/Logs?level=warn&from=2025-01-02&to=2025-01-02");
 
-        // Assert
         resp.StatusCode.Should().Be(HttpStatusCode.OK);
         var html = await resp.Content.ReadAsStringAsync();
 

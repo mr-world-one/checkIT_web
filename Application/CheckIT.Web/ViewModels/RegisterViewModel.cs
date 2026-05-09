@@ -1,22 +1,22 @@
-using System.ComponentModel.DataAnnotations;
+п»їusing System.ComponentModel.DataAnnotations;
 
 namespace CheckIT.Web.ViewModels;
 
 public class RegisterViewModel
 {
-    [Required(ErrorMessage = "Вкажіть ім'я")]
-    [MaxLength(100, ErrorMessage = "Максимум 100 символів")]
+    [Required(ErrorMessage = "Р’РєР°Р¶С–С‚СЊ С–Рј'СЏ")]
+    [MaxLength(100, ErrorMessage = "РњР°РєСЃРёРјСѓРј 100 СЃРёРјРІРѕР»С–РІ")]
     public string? Name { get; set; }
 
-    [Required(ErrorMessage = "Вкажіть email")]
-    [EmailAddress(ErrorMessage = "Некоректний формат email")]
+    [Required(ErrorMessage = "Р’РєР°Р¶С–С‚СЊ email")]
+    [EmailAddress(ErrorMessage = "РќРµРєРѕСЂРµРєС‚РЅРёР№ С„РѕСЂРјР°С‚ email")]
     public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Вкажіть пароль")]
-    [MinLength(8, ErrorMessage = "Пароль має бути не менше 8 символів")]
+    [Required(ErrorMessage = "Р’РєР°Р¶С–С‚СЊ РїР°СЂРѕР»СЊ")]
+    [MinLength(8, ErrorMessage = "РџР°СЂРѕР»СЊ РјР°С” Р±СѓС‚Рё РЅРµ РјРµРЅС€Рµ 8 СЃРёРјРІРѕР»С–РІ")]
     public string? Password { get; set; }
 
-    [Required(ErrorMessage = "Підтвердіть пароль")]
-    [Compare(nameof(Password), ErrorMessage = "Паролі не співпадають")]
+    [Required(ErrorMessage = "РџС–РґС‚РІРµСЂРґС–С‚СЊ РїР°СЂРѕР»СЊ")]
+    [Compare(nameof(Password), ErrorMessage = "РџР°СЂРѕР»С– РЅРµ СЃРїС–РІРїР°РґР°СЋС‚СЊ")]
     public string? ConfirmPassword { get; set; }
 }

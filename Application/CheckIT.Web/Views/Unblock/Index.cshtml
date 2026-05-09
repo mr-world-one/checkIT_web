@@ -1,0 +1,39 @@
+@model CheckIT.Web.ViewModels.UnblockRequestCreateVm
+@{
+    ViewData["Title"] = "Розблокування";
+    var hasOpen = (ViewBag.HasOpen as bool?) == true;
+}
+
+<section class="glass p-4 reveal">
+    <h1 class="h4 mb-2">Запит на розблокування</h1>
+    <p class="text-muted-2 mb-3">
+        Ваш акаунт заблоковано. Ви можете надіслати адміну запит/скаргу на розблокування.
+    </p>
+
+    @if (hasOpen)
+    {
+        <div class="alert alert-info">
+            У вас вже є активний запит. Очікуйте відповідь адміністратора.
+        </div>
+    }
+
+    <form asp-action="Create" method="post" class="d-grid gap-3">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <label asp-for="Message" class="form-label">Повідомлення</label>
+            <textarea asp-for="Message" class="form-control" rows="6" maxlength="2000" disabled="@hasOpen"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+            <div class="form-text">Опишіть причину/аргументи. Мінімум 10 символів.</div>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <button type="submit" class="btn btn-checkit" disabled="@hasOpen">Відправити</button>
+            <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index">На головну</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

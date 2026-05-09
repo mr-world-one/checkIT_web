@@ -1,4 +1,4 @@
-using CheckIT.Web.Services;
+п»їusing CheckIT.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +9,13 @@ public class ProzorroAnalysisController : Controller
 {
     private readonly ProzorroProcessor _processor;
     private readonly IAppLogger _logger;
+    private readonly AnalysisHistoryService _historyService;
 
-    public ProzorroAnalysisController(ProzorroProcessor processor, IAppLogger logger)
+    public ProzorroAnalysisController(ProzorroProcessor processor, IAppLogger logger, AnalysisHistoryService historyService) // в†ђ РґРѕРґР°Р№ РїР°СЂР°РјРµС‚СЂ
     {
         _processor = processor;
         _logger = logger;
+        _historyService = historyService; // в†ђ РґРѕРґР°Р№
     }
 
     [HttpGet]
@@ -25,7 +27,7 @@ public class ProzorroAnalysisController : Controller
     {
         if (string.IsNullOrWhiteSpace(tenderId))
         {
-            ModelState.AddModelError(string.Empty, "Введіть ID тендеру / контракту");
+            ModelState.AddModelError(string.Empty, "Р’РІРµРґС–С‚СЊ ID С‚РµРЅРґРµСЂСѓ / РєРѕРЅС‚СЂР°РєС‚Сѓ");
             return View("Index");
         }
 
@@ -35,15 +37,20 @@ public class ProzorroAnalysisController : Controller
             if (results.Count == 0)
             {
                 _logger.Warn($"Prozorro analysis: no items for id '{tenderId}'");
-                ModelState.AddModelError(string.Empty, "Тендер без цін або позицій");
+                ModelState.AddModelError(string.Empty, "РўРµРЅРґРµСЂ Р±РµР· С†С–РЅ Р°Р±Рѕ РїРѕР·РёС†С–Р№");
                 return View("Index");
             }
+
+            // в†ђ РґРѕРґР°Р№ С†С– РґРІР° СЂСЏРґРєРё
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+            await _historyService.SaveAsync(userId, "Prozorro", tenderId.Trim(), results);
+
             return View("Results", results);
         }
         catch (Exception ex)
         {
             _logger.Error($"Prozorro analysis: failed for id '{tenderId}'", ex);
-            ModelState.AddModelError(string.Empty, "Помилка з'єднання");
+            ModelState.AddModelError(string.Empty, "РџРѕРјРёР»РєР° Р·'С”РґРЅР°РЅРЅСЏ");
             return View("Index");
         }
     }

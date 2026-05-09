@@ -1,4 +1,4 @@
-using CheckIT.Web.Services;
+п»їusing CheckIT.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +9,15 @@ public class ExcelAnalysisController : Controller
 {
     private readonly ExcelProcessingService _excel;
     private readonly IAppLogger _logger;
+    private readonly IPromScraperFactory _scraperFactory;
+    private readonly AnalysisHistoryService _historyService;
 
-    public ExcelAnalysisController(ExcelProcessingService excel, IAppLogger logger)
+    public ExcelAnalysisController(ExcelProcessingService excel, IAppLogger logger, IPromScraperFactory scraperFactory, AnalysisHistoryService historyService)
     {
         _excel = excel;
         _logger = logger;
+        _scraperFactory = scraperFactory;
+        _historyService = historyService;
     }
 
     [HttpGet]
@@ -26,21 +30,21 @@ public class ExcelAnalysisController : Controller
         if (file == null || file.Length == 0)
         {
             _logger.Warn("Excel upload: empty file");
-            ModelState.AddModelError(string.Empty, "Файл порожній або не вибраний");
+            ModelState.AddModelError(string.Empty, "Р¤Р°Р№Р» РїРѕСЂРѕР¶РЅС–Р№ Р°Р±Рѕ РЅРµ РІРёР±СЂР°РЅРёР№");
             return View("Index");
         }
 
         if (file.Length > 10 * 1024 * 1024)
         {
             _logger.Warn($"Excel upload: file too large ({file.Length} bytes)");
-            ModelState.AddModelError(string.Empty, "Файл завеликий (макс. 10 MB)");
+            ModelState.AddModelError(string.Empty, "Р¤Р°Р№Р» Р·Р°РІРµР»РёРєРёР№ (РјР°РєСЃ. 10 MB)");
             return View("Index");
         }
 
         if (!file.FileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
         {
             _logger.Warn($"Excel upload: invalid extension '{file.FileName}'");
-            ModelState.AddModelError(string.Empty, "Невірний формат файлу. Підтримується лише .xlsx");
+            ModelState.AddModelError(string.Empty, "РќРµРІС–СЂРЅРёР№ С„РѕСЂРјР°С‚ С„Р°Р№Р»Сѓ. РџС–РґС‚СЂРёРјСѓС”С‚СЊСЃСЏ Р»РёС€Рµ .xlsx");
             return View("Index");
         }
 
@@ -53,18 +57,18 @@ public class ExcelAnalysisController : Controller
         catch (Exception ex)
         {
             _logger.Error("Excel upload: parse/read error", ex);
-            ModelState.AddModelError(string.Empty, "Помилка читання");
+            ModelState.AddModelError(string.Empty, "РџРѕРјРёР»РєР° С‡РёС‚Р°РЅРЅСЏ");
             return View("Index");
         }
 
         if (items.Count == 0)
         {
             _logger.Warn("Excel upload: no rows parsed");
-            ModelState.AddModelError(string.Empty, "Файл порожній");
+            ModelState.AddModelError(string.Empty, "Р¤Р°Р№Р» РїРѕСЂРѕР¶РЅС–Р№");
             return View("Index");
         }
 
-        using var scraper = new PromUaSeleniumScraper(_logger, headless: true);
+        using var scraper = _scraperFactory.Create(headless: true);
 
         foreach (var item in items)
         {
@@ -125,6 +129,8 @@ public class ExcelAnalysisController : Controller
                 item.MarketPrice = null;
             }
         }
+        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        await _historyService.SaveAsync(userId, "Excel", file.FileName, items);
 
         return View("Results", items);
     }

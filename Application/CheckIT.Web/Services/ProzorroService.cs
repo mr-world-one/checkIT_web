@@ -1,4 +1,4 @@
-using System.Net;
+п»їusing System.Net;
 using System.Text.Json;
 using CheckIT.Web.Models;
 
@@ -94,7 +94,7 @@ public class ProzorroService
         var doc = JsonDocument.Parse(json);
 
         if (!doc.RootElement.TryGetProperty("data", out var data))
-            throw new Exception("Некоректна відповідь Prozorro (немає поля 'data').");
+            throw new Exception("РќРµРєРѕСЂРµРєС‚РЅР° РІС–РґРїРѕРІС–РґСЊ Prozorro (РЅРµРјР°С” РїРѕР»СЏ 'data').");
 
         return data.Clone();
     }

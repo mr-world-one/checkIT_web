@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+Ôªøusing System.Text.RegularExpressions;
 
 namespace CheckIT.Web.Services;
 
@@ -30,10 +30,10 @@ public static class TextSimilarity
         if (string.IsNullOrWhiteSpace(s)) return string.Empty;
 
         s = s.ToLowerInvariant();
-        s = s.Replace('í', '\'').Replace('`', '\'');
+        s = s.Replace('‚Äô', '\'').Replace('`', '\'');
 
         // Keep only letters/digits and spaces
-        s = Regex.Replace(s, "[^a-z‡-ˇ≥ø∫0-9 ]+", " ");
+        s = Regex.Replace(s, "[^a-z–∞-—è—ñ—ó—î0-9 ]+", " ");
         s = Regex.Replace(s, "\\s+", " ").Trim();
 
         return s;

@@ -1,4 +1,4 @@
-using CheckIT.Web.Controllers;
+﻿using CheckIT.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 
