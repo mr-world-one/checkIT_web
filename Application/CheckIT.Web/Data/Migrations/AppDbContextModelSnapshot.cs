@@ -308,7 +308,17 @@ namespace CheckIT.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CheckIT.Web.Models.UnblockRequest", b =>
+           modelBuilder.Entity("CheckIT.Web.Models.UnblockRequest", b =>
+                {
+                    b.HasOne("CheckIT.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CheckIT.Web.Models.AnalysisHistory", b =>
                 {
                     b.HasOne("CheckIT.Web.Models.ApplicationUser", "User")
@@ -319,6 +329,7 @@ namespace CheckIT.Web.Data.Migrations
 
                     b.Navigation("User");
                 });
+
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
