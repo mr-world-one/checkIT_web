@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: "9.0.x"
   WEB_CSPROJ: "Application/CheckIT.Web/CheckIT.Web.csproj"
   TEST_CSPROJ: "CheckIT.Tests/CheckIT.Tests.csproj"
-  IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME }}/checkit-web"
+  IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME_ARTYM }}/checkit-web"
 
 jobs:
   test:
@@ -48,8 +48,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.MY_DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME_ARTYM }}
+          password: ${{ secrets.MY_DOCKERHUB_TOKEN_ARTYM }}
 
       - name: Build Docker image (latest)
         run: |
