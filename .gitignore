@@ -26,4 +26,6 @@ TestResults/
 **/bin/
 **/Debug/
 **/Release/
+*.log
 Logs/
+.claude/

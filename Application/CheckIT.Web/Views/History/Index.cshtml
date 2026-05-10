@@ -1,0 +1,52 @@
+﻿@using CheckIT.Web.Models
+@model List<AnalysisHistory>
+@{
+    ViewData["Title"] = "Історія аналізів";
+}
+
+<section class="d-flex align-items-start justify-content-between gap-3 flex-wrap mb-3 reveal">
+    <div>
+        <h1 class="h4 mb-1">Історія аналізів</h1>
+        <div class="text-muted-2">Всього аналізів: <span class="fw-semibold">@Model.Count</span></div>
+    </div>
+    <a class="btn btn-outline-pro" asp-controller="Home" asp-action="Index" data-transition="left">На головну</a>
+</section>
+
+@if (Model.Count == 0)
+{
+    <div class="card-pro p-4 reveal text-muted-2">Ви ще не робили жодного аналізу.</div>
+}
+else
+{
+    <div class="table-pro reveal">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>Тип</th>
+                <th>Джерело</th>
+                <th>Позицій</th>
+                <th>Дата</th>
+                <th class="text-end">Деталі</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="badge-pill @(item.Type == "Excel" ? "down" : "up")">@item.Type</span>
+                    </td>
+                    <td>@item.Source</td>
+                    <td>@item.ItemsCount</td>
+                    <td>@item.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-pro" asp-controller="History" asp-action="Details" asp-route-id="@item.Id">
+                            Переглянути
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
