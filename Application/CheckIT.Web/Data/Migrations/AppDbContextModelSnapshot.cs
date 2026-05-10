@@ -330,6 +330,17 @@ namespace CheckIT.Web.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CheckIT.Web.Models.AnalysisHistory", b =>
+                {
+                    b.HasOne("CheckIT.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

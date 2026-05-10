@@ -1,7 +1,9 @@
-name: Artym CI/CD Pipeline
+name: CI/CD Pipeline
 on:
   push:
-    branches: [ "for_merge" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: read
