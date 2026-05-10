@@ -1,0 +1,43 @@
+@model CheckIT.Web.ViewModels.PublicUnblockRequestVm
+@{
+    ViewData["Title"] = "Запит на розблокування";
+}
+
+<section class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card-pro p-4 p-md-5 reveal">
+            <h1 class="h4 mb-2">Запит на розблокування</h1>
+            <div class="text-muted-2 mb-3">
+                Якщо ваш акаунт заблоковано — надішліть повідомлення адміністратору.
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <form asp-action="Public" method="post" class="d-grid gap-3">
+                @Html.AntiForgeryToken()
+
+                <div>
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="email@example.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Message" class="form-label">Повідомлення</label>
+                    <textarea asp-for="Message" class="form-control" rows="6" maxlength="2000"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                    <div class="form-text">Мінімум 10 символів.</div>
+                </div>
+
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="submit" class="btn btn-checkit">Відправити</button>
+                    <a class="btn btn-outline-pro" asp-controller="Account" asp-action="Login">Назад до входу</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
