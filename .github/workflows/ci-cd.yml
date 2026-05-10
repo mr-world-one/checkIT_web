@@ -1,10 +1,7 @@
-name: CI/CD Pipeline
-
+name: Artym CI/CD Pipeline
 on:
   push:
-    branches: [ "koval" ]
-  pull_request:
-    branches: [ "koval" ]
+    branches: [ "artym" ]
 
 permissions:
   contents: read

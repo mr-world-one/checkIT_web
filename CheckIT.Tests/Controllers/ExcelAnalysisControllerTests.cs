@@ -5,18 +5,24 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using CheckIT.Web.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CheckIT.Tests.Controllers;
 
 public class ExcelAnalysisControllerTests
 {
     private static ExcelAnalysisController CreateController(
-        Mock<ExcelProcessingService> excel,
-        Mock<IAppLogger> logger,
-        Mock<IPromScraperFactory>? scraperFactory = null)
+    Mock<ExcelProcessingService> excel,
+    Mock<IAppLogger> logger,
+    Mock<IPromScraperFactory>? scraperFactory = null)
     {
         scraperFactory ??= new Mock<IPromScraperFactory>();
-        var controller = new ExcelAnalysisController(excel.Object, logger.Object, scraperFactory.Object);
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+        var historyService = new AnalysisHistoryService(new AppDbContext(options));
+        var controller = new ExcelAnalysisController(excel.Object, logger.Object, scraperFactory.Object, historyService);
         controller.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
         return controller;
     }
