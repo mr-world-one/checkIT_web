@@ -30,4 +30,9 @@
     <Content Remove="CheckIT.Tests\**\*.cs" />
     <None Remove="CheckIT.Tests\**\*.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\History\" />
+  </ItemGroup>
+
 </Project>
