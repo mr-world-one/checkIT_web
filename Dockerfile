@@ -14,17 +14,9 @@ RUN apt-get update \
 # Вказуємо шлях до ChromeDriver, щоб C# код міг його знайти
 ENV CHECKIT_CHROMEDRIVER_PATH=/usr/bin/chromedriver
 
-# ВИПРАВЛЕННЯ #1: Додаємо параметри Chrome для headless режиму
-ENV CHROME_FLAGS="--headless --no-sandbox --disable-dev-shm-usage --disable-gpu"
-
-# Створюємо директорію для логів
+# Створюємо директорію для логів заздалегідь та даємо права доступу користувачу "app"
 RUN mkdir -p /app/Logs \
     && chown -R app:app /app/Logs
-
-# ВИПРАВЛЕННЯ #2: Створюємо тимчасову директорію для Chrome з правами
-RUN mkdir -p /tmp/chrome-data \
-    && chown -R app:app /tmp/chrome-data \
-    && chmod 1777 /tmp /dev/shm
 
 # Образ для збірки з .NET 9 SDK
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
@@ -50,10 +42,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# ВИПРАВЛЕННЯ #3: Копіюємо права на DataProtection директорію
-RUN mkdir -p /home/DataProtection-Keys && chown -R app:app /home/DataProtection-Keys
-
-# Запускаємо під непривілейованим користувачем
+# Запускаємо під непривілейованим користувачем (стандарт для .NET контейнерів)
 USER app
 
 ENTRYPOINT ["dotnet", "CheckIT.Web.dll"]
