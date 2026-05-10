@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ "for_merge" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
