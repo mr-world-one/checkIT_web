@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: "9.0.x"
   WEB_CSPROJ: "Application/CheckIT.Web/CheckIT.Web.csproj"
   TEST_CSPROJ: "CheckIT.Tests/CheckIT.Tests.csproj"
-  IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME_ARTYM }}/checkit-web"
+  IMAGE_NAME: "${{ secrets.DOCKERHUB_USERNAME_ARTYM }}/artym_checkit"
 
 jobs:
   test:
